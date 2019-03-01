@@ -1,5 +1,7 @@
 # Terrastate
 
+[![Build Status](https://travis-ci.com/janritter/terrastate.svg?token=fPhMwJC3SnTkQrfzte44&branch=master)](https://travis-ci.com/janritter/terrastate)
+
 ## Commands
 
 ### Resolve dependencies
