@@ -1,0 +1,23 @@
+{
+    "verifyConditions": [
+        "@semantic-release/github"
+    ],
+    "prepare": [
+        {
+            "path": "@semantic-release/changelog",
+            "changelogFile": "CHANGELOG.md"
+        },
+        {
+            "path": "@semantic-release/git",
+            "assets": "CHANGELOG.md"
+        }
+    ],
+    "publish": [
+        "@semantic-release/github",
+        {
+            "path": "semantic-release",
+            "name": "janritter/terrastate"
+        }
+    ],
+    "tagFormat": "${version}"
+}

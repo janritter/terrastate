@@ -1,0 +1,48 @@
+stages:
+  - test
+
+  - name: release
+    if: branch = master AND type != pull_request
+
+  - name: build
+    if: branch = master AND type != pull_request
+
+jobs:
+  include:
+    - stage: test
+      language: go
+      go: "stable"
+      before_script:
+        # Setup dependency management tool (go dep)
+        - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+        - chmod +x $GOPATH/bin/dep
+      script:
+        - make prepare
+        - make tests
+
+    - stage: release
+      language: node_js
+      install:
+        - . $HOME/.nvm/nvm.sh
+        - nvm install stable
+        - nvm use stable
+        - npm install @semantic-release/changelog && npm install @semantic-release/git
+      script:
+        - npx semantic-release
+
+    - stage: build
+      language: go
+      go: "stable"
+      before_script:
+        # Setup dependency management tool (go dep)
+        - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+        - chmod +x $GOPATH/bin/dep
+        # Use latest master version, which includes the git tag from the release step
+        - git checkout master
+      script:
+        - go get github.com/mitchellh/gox
+        - go get github.com/tcnksm/ghr
+        - make prepare
+        - NOW=$(date +'%Y-%m-%d_%T')
+        - gox -output "dist/{{.OS}}_{{.Arch}}_{{.Dir}}" -ldflags "-X github.com/janritter/terrastate/cmd.gitSha=`git rev-parse HEAD` -X github.com/janritter/terrastate/cmd.buildTime=$NOW -X github.com/janritter/terrastate/cmd.version=`git describe --abbrev=0 --tags`" -arch="amd64 386" -os="linux darwin windows"
+        - ghr --username janritter --token $GITHUB_TOKEN --replace $(git describe --abbrev=0 --tags) dist/
