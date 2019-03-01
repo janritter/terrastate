@@ -1,0 +1,5 @@
+# Go dep
+vendor/*
+
+# Build
+bin/*
