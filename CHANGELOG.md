@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/janritter/terrastate/compare/1.0.0...1.1.0) (2019-03-02)
+
+
+### Features
+
+* added multi backend support ([9bb3cc6](https://github.com/janritter/terrastate/commit/9bb3cc6))
+
 # 1.0.0 (2019-03-01)
 
 
