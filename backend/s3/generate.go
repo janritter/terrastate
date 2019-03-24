@@ -4,7 +4,7 @@ import (
 	"github.com/janritter/terrastate/helper"
 )
 
-func (backend *S3Backend) GenerateStatefileForBackend(in interface{}) error {
+func (backend *S3Backend) GenerateConfigurationForBackend(in interface{}) error {
 	stateParams := stateConfig{}
 	err := parseBackendParameter(in, &stateParams)
 	if err != nil {
@@ -13,6 +13,11 @@ func (backend *S3Backend) GenerateStatefileForBackend(in interface{}) error {
 
 	helper.PrintStateValues(stateParams)
 
-	err = createStateFile(stateParams)
+	err = helper.RemoveDotTerraformFolder(in)
+	if err != nil {
+		return err
+	}
+
+	err = createBackendConfigurationFile(stateParams)
 	return err
 }

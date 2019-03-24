@@ -1,29 +1,41 @@
 package s3
 
 import (
-	"io/ioutil"
-	"log"
+	"os"
+	"text/template"
 
 	"github.com/fatih/color"
 )
 
-func createStateFile(in stateConfig) error {
-	fileContent :=
-		`terraform {
-  backend "s3" {
-	encrypt        = true
-	bucket         = "` + in.Bucket + `"
-	region         = "` + in.Region + `"
-	key            = "` + in.Key + `"
-	dynamodb_table = "` + in.DynamoDBTable + `"
-  }
-}
-`
+func createBackendConfigurationFile(in stateConfig) error {
+	t, err := template.New("backend").Parse(`terraform {
+		backend "s3" {
+		  encrypt        = true
+		  {{ if .Bucket }}
+		  bucket         = "{{ .Bucket }}"
+		  {{ end }}
+		  {{ if .Region }}
+		  region         = "{{ .Region }}"
+		  {{ end }}
+		  {{ if .Key }}
+		  key            = "{{ .Key }}"
+		  {{ end }}
+		  {{ if .DynamoDBTable }}
+		  dynamodb_table = "{{ .DynamoDBTable }}"
+		  {{ end }}
+		}
+	  }
+	  `)
 
-	data := []byte(fileContent)
-	err := ioutil.WriteFile("terrastate.tf", data, 0644)
+	f, err := os.Create("terrastate.tf")
 	if err != nil {
-		log.Println(err)
+		color.Red(err.Error())
+		return err
+	}
+
+	err = t.Execute(f, in)
+	if err != nil {
+		color.Red(err.Error())
 		return err
 	}
 

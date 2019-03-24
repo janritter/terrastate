@@ -40,6 +40,18 @@ Feel free to add a new backend and create a pull request - [How to create a new 
 
 For more information about the backend specific variables click the backend in the list above.
 
+#### Optional Terraform variables
+
+##### Automatic removal of the .terraform folder
+
+```bash
+state_auto_remove_old = true
+```
+
+When you set the value to true, the .terraform folder in the current directory gets removed when you create a terrastate.tf backend configuration through terrastate. If you set the value to false or don't set it, then the .terraform folder will not be removed.
+
+This option allowes you to execute terrastate and then directly terraform init without manually removing the .terraform folder.
+
 ### Version
 
 ``` bash
