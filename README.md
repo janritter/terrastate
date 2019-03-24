@@ -66,7 +66,7 @@ terrastate help
 
 ## Installation
 
-1. Download the latest release binary for your OS - [Releases]([https://link](https://github.com/janritter/terrastate/releases)) - For Mac (64bit) this would be 'darwin_amd64_terrastate'
+1. Download the latest release binary for your OS - [Releases](https://github.com/janritter/terrastate/releases) - For Mac (64bit) this would be 'darwin_amd64_terrastate'
 2. Rename the downloaded binary to terrastate and move it to your '/usr/bin/' or '/usr/local/bin' directory
 3. Start using terrastate
 
