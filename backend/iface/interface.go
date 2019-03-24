@@ -1,5 +1,5 @@
 package iface
 
 type BackendAPI interface {
-	GenerateStatefileForBackend(in interface{}) error
+	GenerateConfigurationForBackend(in interface{}) error
 }

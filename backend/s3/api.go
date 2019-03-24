@@ -1,7 +1,7 @@
 package s3
 
 type S3BackendAPI interface {
-	GenerateStatefileForBackend(in interface{}) error
+	GenerateConfigurationForBackend(in interface{}) error
 }
 
 type S3Backend struct{}

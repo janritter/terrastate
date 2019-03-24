@@ -7,7 +7,7 @@ import (
 	"github.com/fatih/color"
 )
 
-func createStateFile(in stateConfig) error {
+func createBackendConfigurationFile(in stateConfig) error {
 	fileContent :=
 		`terraform {
   backend "s3" {

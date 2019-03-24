@@ -85,7 +85,7 @@ to quickly create a Cobra application.`,
 			BackendAPI: backendInterface,
 		}
 
-		backendBase.GenerateStatefileForBackend(decoded)
+		backendBase.GenerateConfigurationForBackend(decoded)
 	},
 }
 
