@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/janritter/terrastate/compare/1.1.0...1.2.0) (2019-03-24)
+
+
+### Bug Fixes
+
+* use golang template to generate backend configuration - fixes [#5](https://github.com/janritter/terrastate/issues/5) ([18ff8a2](https://github.com/janritter/terrastate/commit/18ff8a2))
+
+
+### Features
+
+* added option to automaticly remove the .terraform folder when creation a new backend config file - closes [#6](https://github.com/janritter/terrastate/issues/6) ([d2a834d](https://github.com/janritter/terrastate/commit/d2a834d))
+
 # [1.1.0](https://github.com/janritter/terrastate/compare/1.0.0...1.1.0) (2019-03-02)
 
 
