@@ -37,6 +37,8 @@ jobs:
         # Setup dependency management tool (go dep)
         - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
         - chmod +x $GOPATH/bin/dep
+         # Install Python 3
+        - sudo apt-get install python3 python3-pip -y
         # Use latest master version, which includes the git tag from the release step
         - git checkout master
       script:
