@@ -50,7 +50,8 @@ jobs:
         - ghr --username janritter --token $GITHUB_TOKEN --replace $(git describe --abbrev=0 --tags) dist/
         
         # Create new Homebrew formula
-        - export FILE_HASH=`sha256sum dist/darwin_amd64_terrastate | awk '{print $1}'`
+        - export FILE_HASH_MAC=`sha256sum dist/darwin_amd64_terrastate | awk '{print $1}'`
+        - export FILE_HASH_LINUX=`sha256sum dist/linux_amd64_terrastate | awk '{print $1}'`
         - export VERSION=`git describe --abbrev=0 --tags`
         - git clone https://${GITHUB_TOKEN}@github.com/janritter/homebrew-terrastate.git
         - cd homebrew-terrastate
