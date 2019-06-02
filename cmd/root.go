@@ -79,7 +79,10 @@ var rootCmd = &cobra.Command{
 			BackendAPI: backendInterface,
 		}
 
-		backendBase.GenerateConfigurationForBackend(decoded)
+		err = backendBase.GenerateConfigurationForBackend(decoded)
+		if err != nil {
+			os.Exit(1)
+		}
 	},
 }
 

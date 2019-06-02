@@ -26,6 +26,10 @@ func createBackendConfigurationFile(in stateConfig) error {
 		}
 	  }
 	  `)
+	if err != nil {
+		color.Red(err.Error())
+		return err
+	}
 
 	f, err := os.Create("terrastate.tf")
 	if err != nil {
