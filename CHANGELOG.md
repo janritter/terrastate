@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/janritter/terrastate/compare/1.2.0...1.2.1) (2019-06-02)
+
+
+### Bug Fixes
+
+* added missing checks and outputs for errors ([90ea548](https://github.com/janritter/terrastate/commit/90ea548))
+
 # [1.2.0](https://github.com/janritter/terrastate/compare/1.1.0...1.2.0) (2019-03-24)
 
 
