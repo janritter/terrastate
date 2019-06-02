@@ -1,9 +1,9 @@
 package parser
 
 type ParserAPI interface {
-	GetBackendParameterString(key string, optional bool) (error, string)
-	GetBackendParameterInt(key string, optional bool) (error, int)
-	GetBackendParameterBool(key string, optional bool) (error, bool)
+	GetBackendParameterString(key string, optional bool) (string, bool, error)
+	GetBackendParameterInt(key string, optional bool) (int, bool, error)
+	GetBackendParameterBool(key string, optional bool) (bool, bool, error)
 }
 
 type Parser struct {
