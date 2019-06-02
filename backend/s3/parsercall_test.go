@@ -7,15 +7,15 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestParseBackendParameterNoVarFileContent(t *testing.T) {
+func TestCallParserForBackendParametersNoVarFileContent(t *testing.T) {
 	stateConfigResult := stateConfig{}
 
-	err := parseBackendParameter(nil, &stateConfigResult)
+	err := callParserForBackendParameters(nil, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
 	assert.Equal(t, errors.New("Unknown var-file format"), err)
 }
 
-func TestParseBackendParameterSuccess(t *testing.T) {
+func TestCallParserForBackendParametersSuccess(t *testing.T) {
 	testMap := make(map[string]interface{})
 	testMap["state_bucket"] = "test_bucket"
 	testMap["state_dynamodb_table"] = "test_dynamodb_table"
@@ -27,7 +27,7 @@ func TestParseBackendParameterSuccess(t *testing.T) {
 
 	stateConfigResult := stateConfig{}
 
-	err := parseBackendParameter(testMap, &stateConfigResult)
+	err := callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Nil(t, err, "Expected no error")
 	assert.Equal(t, testMap["state_bucket"], stateConfigResult.Bucket)
 	assert.Equal(t, testMap["state_dynamodb_table"], stateConfigResult.DynamoDBTable)
@@ -35,7 +35,7 @@ func TestParseBackendParameterSuccess(t *testing.T) {
 	assert.Equal(t, testMap["region"], stateConfigResult.Region)
 }
 
-func TestParseBackendParameterMissingDynamoDB(t *testing.T) {
+func TestCallParserForBackendParametersMissingDynamoDB(t *testing.T) {
 	testMap := make(map[string]interface{})
 	testMap["state_bucket"] = "test_bucket"
 	testMap["state_key"] = "test/{{current.dir}}/terraform.tfstate"
@@ -43,12 +43,12 @@ func TestParseBackendParameterMissingDynamoDB(t *testing.T) {
 
 	stateConfigResult := stateConfig{}
 
-	err := parseBackendParameter(testMap, &stateConfigResult)
+	err := callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("state_dynamodb_table must be defined"), err)
+	assert.Equal(t, errors.New("state_dynamodb_table must be defined, was not found var-file"), err)
 }
 
-func TestParseBackendParameterInvalidDynamoDB(t *testing.T) {
+func TestCallParserForBackendParametersInvalidDynamoDB(t *testing.T) {
 	testMap := make(map[string]interface{})
 	testMap["state_bucket"] = "test_bucket"
 	testMap["state_dynamodb_table"] = 0
@@ -57,12 +57,12 @@ func TestParseBackendParameterInvalidDynamoDB(t *testing.T) {
 
 	stateConfigResult := stateConfig{}
 
-	err := parseBackendParameter(testMap, &stateConfigResult)
+	err := callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("state_dynamodb_table must be of type string, was int"), err)
+	assert.Equal(t, errors.New("Expected state_dynamodb_table to be string, was int"), err)
 }
 
-func TestParseBackendParameterMissingBucket(t *testing.T) {
+func TestCallParserForBackendParametersMissingBucket(t *testing.T) {
 	testMap := make(map[string]interface{})
 	testMap["state_dynamodb_table"] = "test_bucket_table"
 	testMap["state_key"] = "test/{{current.dir}}/terraform.tfstate"
@@ -70,12 +70,12 @@ func TestParseBackendParameterMissingBucket(t *testing.T) {
 
 	stateConfigResult := stateConfig{}
 
-	err := parseBackendParameter(testMap, &stateConfigResult)
+	err := callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("state_bucket must be defined"), err)
+	assert.Equal(t, errors.New("state_bucket must be defined, was not found var-file"), err)
 }
 
-func TestParseBackendParameterInvalidBucket(t *testing.T) {
+func TestCallParserForBackendParametersInvalidBucket(t *testing.T) {
 	testMap := make(map[string]interface{})
 	testMap["state_bucket"] = 0
 	testMap["state_dynamodb_table"] = "test_bucket_table"
@@ -84,12 +84,12 @@ func TestParseBackendParameterInvalidBucket(t *testing.T) {
 
 	stateConfigResult := stateConfig{}
 
-	err := parseBackendParameter(testMap, &stateConfigResult)
+	err := callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("state_bucket must be of type string, was int"), err)
+	assert.Equal(t, errors.New("Expected state_bucket to be string, was int"), err)
 }
 
-func TestParseBackendParameterMissingKey(t *testing.T) {
+func TestCallParserForBackendParametersMissingKey(t *testing.T) {
 	testMap := make(map[string]interface{})
 	testMap["state_bucket"] = "test_bucket"
 	testMap["state_dynamodb_table"] = "test_bucket_table"
@@ -97,12 +97,12 @@ func TestParseBackendParameterMissingKey(t *testing.T) {
 
 	stateConfigResult := stateConfig{}
 
-	err := parseBackendParameter(testMap, &stateConfigResult)
+	err := callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("state_key must be defined"), err)
+	assert.Equal(t, errors.New("state_key must be defined, was not found var-file"), err)
 }
 
-func TestParseBackendParameterInvalidKey(t *testing.T) {
+func TestCallParserForBackendParametersInvalidKey(t *testing.T) {
 	testMap := make(map[string]interface{})
 	testMap["state_bucket"] = "test_bucket"
 	testMap["state_dynamodb_table"] = "test_bucket_table"
@@ -111,9 +111,9 @@ func TestParseBackendParameterInvalidKey(t *testing.T) {
 
 	stateConfigResult := stateConfig{}
 
-	err := parseBackendParameter(testMap, &stateConfigResult)
+	err := callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("state_key must be of type string, was int"), err)
+	assert.Equal(t, errors.New("Expected state_key to be string, was int"), err)
 
 	testMap = make(map[string]interface{})
 	testMap["state_bucket"] = "test_bucket"
@@ -121,12 +121,12 @@ func TestParseBackendParameterInvalidKey(t *testing.T) {
 	testMap["state_key"] = "test/terraform.tfstate"
 	testMap["region"] = "eu-central-1"
 
-	err = parseBackendParameter(testMap, &stateConfigResult)
+	err = callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("{{current.dir}} is missing the state_key string"), err)
+	assert.Equal(t, errors.New("{{current.dir}} is missing the state_key parameter"), err)
 }
 
-func TestParseBackendParameterMissingRegion(t *testing.T) {
+func TestCallParserForBackendParametersMissingRegion(t *testing.T) {
 	testMap := make(map[string]interface{})
 	testMap["state_bucket"] = "test_bucket"
 	testMap["state_dynamodb_table"] = "test_bucket_table"
@@ -134,12 +134,12 @@ func TestParseBackendParameterMissingRegion(t *testing.T) {
 
 	stateConfigResult := stateConfig{}
 
-	err := parseBackendParameter(testMap, &stateConfigResult)
+	err := callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("region must be defined"), err)
+	assert.Equal(t, errors.New("region must be defined, was not found var-file"), err)
 }
 
-func TestParseBackendParameterInvalidRegion(t *testing.T) {
+func TestCallParserForBackendParametersInvalidRegion(t *testing.T) {
 	testMap := make(map[string]interface{})
 	testMap["state_bucket"] = "test_bucket"
 	testMap["state_dynamodb_table"] = "test_bucket_table"
@@ -148,7 +148,7 @@ func TestParseBackendParameterInvalidRegion(t *testing.T) {
 
 	stateConfigResult := stateConfig{}
 
-	err := parseBackendParameter(testMap, &stateConfigResult)
+	err := callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("region must be of type string, was int"), err)
+	assert.Equal(t, errors.New("Expected region to be string, was int"), err)
 }
