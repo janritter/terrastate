@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/janritter/terrastate/compare/1.2.1...1.2.2) (2019-06-02)
+
+
+### Bug Fixes
+
+* also show the "Skipping removing of .terraform folder" message when the value is set to false and not only when the value is not set ([967f438](https://github.com/janritter/terrastate/commit/967f438))
+
 ## [1.2.1](https://github.com/janritter/terrastate/compare/1.2.0...1.2.1) (2019-06-02)
 
 
