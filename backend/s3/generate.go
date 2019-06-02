@@ -6,7 +6,7 @@ import (
 
 func (backend *S3Backend) GenerateConfigurationForBackend(in interface{}) error {
 	stateParams := stateConfig{}
-	err := parseBackendParameter(in, &stateParams)
+	err := callParserForBackendParameters(in, &stateParams)
 	if err != nil {
 		return err
 	}

@@ -16,9 +16,14 @@ jobs:
         # Setup dependency management tool (go dep)
         - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
         - chmod +x $GOPATH/bin/dep
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        - chmod +x ./cc-test-reporter
+        - ./cc-test-reporter before-build
       script:
         - make prepare
-        - make tests
+        - go test ./... -coverprofile c.out -v
+      after_script:
+        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
     - stage: release
       language: node_js
