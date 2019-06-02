@@ -14,7 +14,7 @@ func RemoveDotTerraformFolder(in interface{}) error {
 		return err
 	}
 
-	if valueSet == false {
+	if valueSet == false || shouldRemove == false {
 		color.Blue("Skipping removing of .terraform folder")
 		return nil
 	}
