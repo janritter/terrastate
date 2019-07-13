@@ -9,22 +9,14 @@ import (
 
 func createBackendConfigurationFile(in stateConfig) error {
 	t, err := template.New("backend").Parse(`terraform {
-		backend "s3" {
-		  encrypt        = true
-		  {{ if .Bucket }}
-		  bucket         = "{{ .Bucket }}"
-		  {{ end }}
-		  {{ if .Region }}
-		  region         = "{{ .Region }}"
-		  {{ end }}
-		  {{ if .Key }}
-		  key            = "{{ .Key }}"
-		  {{ end }}
-		  {{ if .DynamoDBTable }}
-		  dynamodb_table = "{{ .DynamoDBTable }}"
-		  {{ end }}
-		}
-	  }
+  backend "s3" {
+	encrypt        = true
+	{{ if .Bucket }}bucket         = "{{ .Bucket }}"{{ end }}
+	{{ if .Region }}region         = "{{ .Region }}"{{ end }}
+	{{ if .Key }}key            = "{{ .Key }}"{{ end }}
+	{{ if .DynamoDBTable }}dynamodb_table = "{{ .DynamoDBTable }}"{{ end }}
+  }
+}
 	  `)
 	if err != nil {
 		color.Red(err.Error())
