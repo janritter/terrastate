@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/janritter/terrastate/compare/1.2.2...1.2.3) (2019-07-13)
+
+
+### Bug Fixes
+
+* improved s3 template to be identical to the output of the terraform code formatter ([3321145](https://github.com/janritter/terrastate/commit/3321145))
+
 ## [1.2.2](https://github.com/janritter/terrastate/compare/1.2.1...1.2.2) (2019-06-02)
 
 
