@@ -3,3 +3,6 @@ vendor/*
 
 # Build
 bin/*
+
+# vscode
+.vscode/*
