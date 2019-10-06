@@ -15,17 +15,17 @@ func RemoveDotTerraformFolder(in interface{}) error {
 	}
 
 	if valueSet == false || shouldRemove == false {
-		color.Blue("Skipping removing of .terraform folder")
+		color.Blue("Skipping removing of .terraform/terraform.tfstate")
 		return nil
 	}
 
 	if valueSet == true && shouldRemove == true {
-		err = os.RemoveAll(".terraform")
+		err = os.Remove(".terraform/terraform.tfstate")
 		if err != nil {
 			color.Red(err.Error())
 			return err
 		}
-		color.Green("Removed .terraform folder")
+		color.Green("Removed .terraform/terraform.tfstate")
 	}
 	return nil
 }
