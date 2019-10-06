@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/janritter/terrastate/compare/1.2.3...1.3.0) (2019-10-06)
+
+
+### Features
+
+* improved removal of .terraform fodler, only remove tfstate file instaed of the whole folder ([d33b005](https://github.com/janritter/terrastate/commit/d33b005))
+
 ## [1.2.3](https://github.com/janritter/terrastate/compare/1.2.2...1.2.3) (2019-07-13)
 
 
