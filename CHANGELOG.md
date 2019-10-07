@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/janritter/terrastate/compare/1.3.0...1.3.1) (2019-10-07)
+
+
+### Bug Fixes
+
+* Removal of old tfstate failed when file was not existent ([e1f109d](https://github.com/janritter/terrastate/commit/e1f109d))
+
 # [1.3.0](https://github.com/janritter/terrastate/compare/1.2.3...1.3.0) (2019-10-06)
 
 
