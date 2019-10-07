@@ -20,7 +20,7 @@ func RemoveDotTerraformFolder(in interface{}) error {
 	}
 
 	if valueSet == true && shouldRemove == true {
-		err = os.Remove(".terraform/terraform.tfstate")
+		err = os.RemoveAll(".terraform/terraform.tfstate")
 		if err != nil {
 			color.Red(err.Error())
 			return err
