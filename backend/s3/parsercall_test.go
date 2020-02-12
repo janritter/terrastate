@@ -45,7 +45,7 @@ func TestCallParserForBackendParametersMissingDynamoDB(t *testing.T) {
 
 	err := callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("state_dynamodb_table must be defined, was not found var-file"), err)
+	assert.Equal(t, errors.New("state_dynamodb_table must be defined, was not found in var-file"), err)
 }
 
 func TestCallParserForBackendParametersInvalidDynamoDB(t *testing.T) {
@@ -72,7 +72,7 @@ func TestCallParserForBackendParametersMissingBucket(t *testing.T) {
 
 	err := callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("state_bucket must be defined, was not found var-file"), err)
+	assert.Equal(t, errors.New("state_bucket must be defined, was not found in var-file"), err)
 }
 
 func TestCallParserForBackendParametersInvalidBucket(t *testing.T) {
@@ -99,7 +99,7 @@ func TestCallParserForBackendParametersMissingKey(t *testing.T) {
 
 	err := callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("state_key must be defined, was not found var-file"), err)
+	assert.Equal(t, errors.New("state_key must be defined, was not found in var-file"), err)
 }
 
 func TestCallParserForBackendParametersInvalidKey(t *testing.T) {
@@ -136,7 +136,7 @@ func TestCallParserForBackendParametersMissingRegion(t *testing.T) {
 
 	err := callParserForBackendParameters(testMap, &stateConfigResult)
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("region must be defined, was not found var-file"), err)
+	assert.Equal(t, errors.New("region must be defined, was not found in var-file"), err)
 }
 
 func TestCallParserForBackendParametersInvalidRegion(t *testing.T) {
