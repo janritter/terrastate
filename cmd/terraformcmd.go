@@ -17,6 +17,7 @@ func getTerraformExecCmdForSubcommand(subcommand string, varFile string) *exec.C
 			"--var-file=" + varFile},
 		Stdout: os.Stdout,
 		Stderr: os.Stdout,
+		Stdin:  os.Stdin,
 	}
 
 	fmt.Printf("\nRunning %s command: %s \n\n", subcommand, cmd.String())
