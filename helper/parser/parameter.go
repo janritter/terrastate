@@ -50,7 +50,7 @@ func (parser *Parser) getSingleBackendParameterInterface(key string, optional bo
 
 		if valueSet == false {
 			if optional == false {
-				err := errors.New(key + " must be defined, was not found var-file")
+				err := errors.New(key + " must be defined, was not found in var-file")
 				color.Red(err.Error())
 				return nil, valueSet, err
 			}

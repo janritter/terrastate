@@ -45,8 +45,6 @@ var varFile string
 var rootCmd = &cobra.Command{
 	Use:   "terrastate",
 	Short: "Tool to manage multiple state backends in Terraform - Allows Multi account setups",
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
 		if varFile == "" {
 			log.Fatal("--var-file Flag must be set")

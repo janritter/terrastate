@@ -1,4 +1,4 @@
-// Copyright © 2019 Jan Ritter <git@janrtr.de>
+// Copyright © 2020 Jan Ritter <git@janrtr.de>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,24 +24,33 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+
+	"github.com/fatih/color"
 )
 
-var version string
-var gitSha string
-var buildTime string
-
-// versionCmd represents the version command
-var versionCmd = &cobra.Command{
-	Use:   "version",
-	Short: "Includes version information about terrastate",
-
+// applyCmd represents the apply command
+var applyCmd = &cobra.Command{
+	Use:   "apply",
+	Short: "Run terraform apply through terrastate, also executes terrastate and terraform init",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Version - %s \n", version)
-		fmt.Printf("Git SHA - %s \n", gitSha)
-		fmt.Printf("Build Time - %s \n", buildTime)
+		// Terrastate
+		fmt.Printf("Running terrastate \n\n")
+		rootCmd.Run(cmd, args)
+
+		// Terraform init
+		if err := getTerraformExecCmdForSubcommand("init", varFile).Run(); err != nil {
+			color.Red("terraform init returned the following error code: " + err.Error())
+			return
+		}
+
+		// Terraform apply
+		if err := getTerraformExecCmdForSubcommand("apply", varFile).Run(); err != nil {
+			color.Red("terraform apply returned the following error code: " + err.Error())
+			return
+		}
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(applyCmd)
 }

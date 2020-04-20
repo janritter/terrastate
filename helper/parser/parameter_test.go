@@ -53,7 +53,7 @@ func TestGetBackendParameterStringNotSetNotOptional(t *testing.T) {
 	result, valueSet, err := parser.GetBackendParameterString("testKey", false)
 
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("testKey must be defined, was not found var-file"), err)
+	assert.Equal(t, errors.New("testKey must be defined, was not found in var-file"), err)
 	assert.Equal(t, "", result)
 	assert.Equal(t, false, valueSet)
 }
@@ -105,7 +105,7 @@ func TestGetBackendParameterIntNotSetNotOptional(t *testing.T) {
 	result, valueSet, err := parser.GetBackendParameterInt("testKey", false)
 
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("testKey must be defined, was not found var-file"), err)
+	assert.Equal(t, errors.New("testKey must be defined, was not found in var-file"), err)
 	assert.Equal(t, 0, result)
 	assert.Equal(t, false, valueSet)
 }
@@ -157,7 +157,7 @@ func TestGetBackendParameterBoolNotSetNotOptional(t *testing.T) {
 	result, valueSet, err := parser.GetBackendParameterBool("testKey", false)
 
 	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("testKey must be defined, was not found var-file"), err)
+	assert.Equal(t, errors.New("testKey must be defined, was not found in var-file"), err)
 	assert.Equal(t, false, result)
 	assert.Equal(t, false, valueSet)
 }
