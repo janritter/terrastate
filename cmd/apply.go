@@ -22,8 +22,6 @@ package cmd
 
 import (
 	"fmt"
-	"os"
-	"os/exec"
 
 	"github.com/spf13/cobra"
 
@@ -39,44 +37,16 @@ var applyCmd = &cobra.Command{
 		fmt.Printf("Running terrastate \n\n")
 		rootCmd.Run(cmd, args)
 
-		terraformExecutable, _ := exec.LookPath("terraform")
-
-		cmdTerraformInit := &exec.Cmd{
-			Path: terraformExecutable,
-			Args: []string{
-				terraformExecutable,
-				"init",
-				"--var-file=" + varFile},
-			Stdout: os.Stdout,
-			Stderr: os.Stdout,
-		}
-
 		// Terraform init
-		fmt.Printf("\nRunning init command: %s \n\n", cmdTerraformInit.String())
-
-		errInit := cmdTerraformInit.Run()
-
-		if errInit != nil {
-			color.Red("terraform init returned the following error code: " + errInit.Error())
-		}
-
-		cmdTerraformApply := &exec.Cmd{
-			Path: terraformExecutable,
-			Args: []string{
-				terraformExecutable,
-				"apply",
-				"--var-file=" + varFile},
-			Stdout: os.Stdout,
-			Stderr: os.Stdout,
+		if err := getTerraformExecCmdForSubcommand("init", varFile).Run(); err != nil {
+			color.Red("terraform init returned the following error code: " + err.Error())
+			return
 		}
 
 		// Terraform apply
-		fmt.Printf("\nRunning apply command: %s \n\n", cmdTerraformApply.String())
-
-		errApply := cmdTerraformApply.Run()
-
-		if errApply != nil {
-			color.Red("terraform apply returned the following error code: " + errApply.Error())
+		if err := getTerraformExecCmdForSubcommand("apply", varFile).Run(); err != nil {
+			color.Red("terraform apply returned the following error code: " + err.Error())
+			return
 		}
 	},
 }
