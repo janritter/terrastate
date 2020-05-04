@@ -120,10 +120,6 @@ func TestCallParserForBackendParametersInvalidKey(t *testing.T) {
 	testMap["state_dynamodb_table"] = "test_bucket_table"
 	testMap["state_key"] = "test/terraform.tfstate"
 	testMap["region"] = "eu-central-1"
-
-	err = callParserForBackendParameters(testMap, &stateConfigResult)
-	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("{{current.dir}} is missing the state_key parameter"), err)
 }
 
 func TestCallParserForBackendParametersMissingRegion(t *testing.T) {
