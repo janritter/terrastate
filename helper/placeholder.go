@@ -34,7 +34,7 @@ func GetStringAfterSettingPlaceholderValues(input string) string {
 
 	for _, placeholder := range placeholders {
 		if strings.Contains(output, "{{"+placeholder.key+"}}") {
-			fmt.Println("PLACEHOLDER - replacing {{" + placeholder.key + "}} with " + placeholder.value)
+			fmt.Println("PLACEHOLDER - replacing '{{" + placeholder.key + "}}' in '" + output + "' with '" + placeholder.value + "'")
 		}
 		output = strings.ReplaceAll(output, "{{"+placeholder.key+"}}", placeholder.value)
 	}
