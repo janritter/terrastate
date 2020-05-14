@@ -3,7 +3,7 @@ module github.com/janritter/terrastate
 go 1.14
 
 require (
-	github.com/agext/levenshtein v1.2.2
+	github.com/agext/levenshtein v1.2.3
 	github.com/apparentlymart/go-textseg v1.0.0
 	github.com/coreos/go-etcd v2.0.0+incompatible // indirect
 	github.com/cpuguy83/go-md2man v1.0.10 // indirect
