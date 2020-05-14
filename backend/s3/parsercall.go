@@ -13,29 +13,25 @@ func callParserForBackendParameters(in interface{}, out *stateConfig) error {
 	if err != nil {
 		return err
 	}
-	out.Bucket = bucket
+	out.Bucket = helper.GetStringAfterSettingPlaceholderValues(bucket)
 
 	dynamodbTable, _, err := varParser.GetBackendParameterString("state_dynamodb_table", false)
 	if err != nil {
 		return err
 	}
-	out.DynamoDBTable = dynamodbTable
+	out.DynamoDBTable = helper.GetStringAfterSettingPlaceholderValues(dynamodbTable)
 
 	stateKey, _, err := varParser.GetBackendParameterString("state_key", false)
 	if err != nil {
 		return err
 	}
-	err, stateKey = helper.ReplacePlaceholderInStateKey(stateKey)
-	if err != nil {
-		return err
-	}
-	out.Key = stateKey
+	out.Key = helper.GetStringAfterSettingPlaceholderValues(stateKey)
 
 	region, _, err := varParser.GetBackendParameterString("region", false)
 	if err != nil {
 		return err
 	}
-	out.Region = region
+	out.Region = helper.GetStringAfterSettingPlaceholderValues(region)
 
 	return nil
 }

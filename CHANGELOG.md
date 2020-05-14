@@ -1,3 +1,25 @@
+# [1.5.0](https://github.com/janritter/terrastate/compare/1.4.0...1.5.0) (2020-05-11)
+
+
+### Features
+
+* added terraform destroy command through ansible ([d4d33b0](https://github.com/janritter/terrastate/commit/d4d33b0cf0c4e0b7c185cc74068b66f899fc5ec9))
+* support placeholders in all terrastate vars - solves [#23](https://github.com/janritter/terrastate/issues/23) ([36c1189](https://github.com/janritter/terrastate/commit/36c1189e84245328805a5ac08aa731c80fa66cce))
+
+# [1.4.0](https://github.com/janritter/terrastate/compare/1.3.1...1.4.0) (2020-04-20)
+
+
+### Bug Fixes
+
+* fixed wording in parameter not found error message ([ff4e0f1](https://github.com/janritter/terrastate/commit/ff4e0f14b8279010e4e2f56bd3edf0f71ea1ccc4))
+
+
+### Features
+
+* added apply command to run terrastate, terraform init and apply in one single command ([f1df564](https://github.com/janritter/terrastate/commit/f1df5643a6bafa795d0b7ed526691f599740a198))
+* added plan to call terrastate, terraform init and terraform plan with a single command ([cb1cc13](https://github.com/janritter/terrastate/commit/cb1cc13e0e6262b69c2ebf1d9f248260faff96e9))
+* updated dependencies ([28ed744](https://github.com/janritter/terrastate/commit/28ed744172cd76789cb07d46cf9c02aec6a50e3f))
+
 ## [1.3.1](https://github.com/janritter/terrastate/compare/1.3.0...1.3.1) (2019-10-07)
 
 
