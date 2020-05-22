@@ -6,3 +6,6 @@ bin/*
 
 # vscode
 .vscode/*
+
+# terrastate
+terrastate.tf
