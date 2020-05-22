@@ -9,17 +9,17 @@ import (
 func TestGetStringAfterSettingPlaceholderValuesSinglePlaceholder(t *testing.T) {
 	result := GetStringAfterSettingPlaceholderValues("test/{{current.dir}}/test")
 
-	assert.Equal(t, result, "test/helper/test")
+	assert.Equal(t, "test/helper/test", result)
 }
 
 func TestGetStringAfterSettingPlaceholderValuesMultiplePlaceholder(t *testing.T) {
 	result := GetStringAfterSettingPlaceholderValues("test/{{current.dir}}/test/{{current.dir}}")
 
-	assert.Equal(t, result, "test/helper/test/helper")
+	assert.Equal(t, "test/helper/test/helper", result)
 }
 
 func TestGetCurrentDir(t *testing.T) {
 	result := getCurrentDir()
 
-	assert.Equal(t, result, "helper")
+	assert.Equal(t, "helper", result)
 }
