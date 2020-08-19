@@ -89,8 +89,6 @@ brew install terrastate
 
 ### Resolve dependencies
 
-"go dep" must be installed
-
 ```make
 make prepare
 ```
