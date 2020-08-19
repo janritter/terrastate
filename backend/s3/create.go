@@ -15,9 +15,10 @@ func createBackendConfigurationFile(in stateConfig) error {
 	{{ if .Region }}region         = "{{ .Region }}"{{ end }}
 	{{ if .Key }}key            = "{{ .Key }}"{{ end }}
 	{{ if .DynamoDBTable }}dynamodb_table = "{{ .DynamoDBTable }}"{{ end }}
+	{{ if .ACL }}acl            = "{{ .ACL }}"{{ end }}
   }
 }
-	  `)
+`)
 	if err != nil {
 		color.Red(err.Error())
 		return err

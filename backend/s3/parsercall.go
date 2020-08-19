@@ -33,5 +33,11 @@ func callParserForBackendParameters(in interface{}, out *stateConfig) error {
 	}
 	out.Region = helper.GetStringAfterSettingPlaceholderValues(region)
 
+	acl, _, err := varParser.GetBackendParameterString("acl", false)
+	if err != nil {
+		return err
+	}
+	out.ACL = helper.GetStringAfterSettingPlaceholderValues(acl)
+
 	return nil
 }

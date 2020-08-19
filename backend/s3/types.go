@@ -5,4 +5,5 @@ type stateConfig struct {
 	DynamoDBTable string
 	Key           string
 	Region        string
+	ACL           string
 }
