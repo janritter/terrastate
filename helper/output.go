@@ -11,7 +11,10 @@ func PrintStateValues(in interface{}) {
 	fmt.Println("------- Using the following values -------")
 	for i := 0; i < v.NumField(); i++ {
 		name := v.Type().Field(i).Name
-		fmt.Printf("%s = %s \n", name, v.Field(i).Interface())
+		value := v.Field(i).Interface()
+		if value != "" {
+			fmt.Printf("%s = %s \n", name, v.Field(i).Interface())
+		}
 	}
 	fmt.Println("------------------------------------------")
 }

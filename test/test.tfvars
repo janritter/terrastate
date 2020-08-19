@@ -12,4 +12,6 @@ state_key = "terrastate/{{ current.dir }}/terraform.tfstate"
 
 state_auto_remove_old = true
 
+acl  = "bucket-owner-full-control"
+
 stage = "test"
