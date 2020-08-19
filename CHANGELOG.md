@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/janritter/terrastate/compare/1.5.0...1.6.0) (2020-08-19)
+
+
+### Features
+
+* added support for s3 acl variable ([51a4a6e](https://github.com/janritter/terrastate/commit/51a4a6eb9183ea8d5a94e568a4cccc052f4220aa))
+
 # [1.5.0](https://github.com/janritter/terrastate/compare/1.4.0...1.5.0) (2020-05-11)
 
 
