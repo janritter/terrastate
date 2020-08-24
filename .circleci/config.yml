@@ -39,4 +39,14 @@ workflows:
   version: 2
   build:
     jobs:
-      - test
+      - test:
+          filters:
+            branches:
+              only:
+              - /feat\/.*/
+              - /chore\/.*/
+              - /fix\/.*/
+              - /test\/.*/
+              - /refactor\/.*/
+              - /perf\/.*/
+              - master
