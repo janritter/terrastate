@@ -65,6 +65,29 @@ terrastate version
 terrastate help
 ```
 
+## Shell shorthand functions
+
+Paste these functions into your ~/.zshrc or ~/.bashrc file and adapt the var-file path according to your project structure
+
+ts was chosen as a shorthand for terrastate, you could also use tf instead 
+
+```bash
+function tsplan {
+    echo terrastate plan --var-file ../test/$@.tfvars;
+    terrastate plan --var-file ../test/$@.tfvars;
+}
+
+function tsaplly {
+    echo terrastate apply --var-file ../test/$@.tfvars;
+    terrastate apply --var-file ../test/$@.tfvars;
+}
+
+function tsdestroy {
+    echo terrastate destroy --var-file ../test/$@.tfvars;
+    terrastate destroy --var-file ../test/$@.tfvars;
+}
+```
+
 ## Installation
 
 ### For Mac using Homebrew
@@ -88,8 +111,6 @@ brew install terrastate
 ## Development
 
 ### Resolve dependencies
-
-"go dep" must be installed
 
 ```make
 make prepare
