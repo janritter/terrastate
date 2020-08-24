@@ -71,6 +71,11 @@ jobs:
           command: |
             make prepare
       - run:
+          name: Configure git user
+          command: |
+            git config --global user.email "git+circleci@janrtr.de"
+            git config --global user.name "CircleCI"
+      - run:
           name: Build binaries
           command: |
             export NOW=$(date +'%Y-%m-%d_%T')
