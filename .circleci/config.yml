@@ -1,0 +1,42 @@
+version: 2.0
+
+jobs:
+  test:
+    docker:
+      - image: circleci/golang
+    steps:
+      - checkout
+      - run:
+          name: Install CodeClimate reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+            ./cc-test-reporter before-build
+      - run:
+          name: Install dependencies
+          command: |
+            make prepare
+      - run:
+          name: "Create a temp directory for artifacts"
+          command: |
+            mkdir -p /tmp/artifacts
+      - run:
+          name: Run tests
+          command: |
+            go test ./... -coverprofile c.out -v
+            export STATUS_CODE=$?
+            go tool cover -html=c.out -o coverage.html
+            mv coverage.html /tmp/artifacts
+      - run:
+          name: Send test result to CodeClimate
+          command: |
+              ./cc-test-reporter after-build --exit-code $STATUS_CODE
+          when: always
+      - store_artifacts:
+          path: /tmp/artifacts
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - test
