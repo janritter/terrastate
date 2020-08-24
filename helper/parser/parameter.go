@@ -2,6 +2,7 @@ package parser
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"reflect"
 
@@ -29,6 +30,8 @@ func (parser *Parser) Process(stateFileAttributes []*types.StateFileAttribute) {
 					err := errors.New("Expected " + attribute.VarKey + " to be " + attribute.ExpectedType + ", was " + reflect.TypeOf(mapped[attribute.VarKey]).String())
 					color.Red(err.Error())
 					errorRun = true
+				} else if reflect.TypeOf(mapped[attribute.VarKey]).String() == "string" {
+					attribute.Value = getStringAfterSettingPlaceholderValues(fmt.Sprintf("%v", mapped[attribute.VarKey]))
 				} else {
 					attribute.Value = mapped[attribute.VarKey]
 				}
