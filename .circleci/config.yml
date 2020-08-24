@@ -4,8 +4,7 @@ jobs:
   test:
     docker:
       - image: circleci/golang
-    environment:
-      TEST_RESULTS: /tmp/test-results
+    working_directory: /go/github.com/janritter/terrastate
     steps:
       - checkout
       - run:
@@ -22,12 +21,12 @@ jobs:
           name: "Create a temp directory for artifacts"
           command: |
             mkdir -p /tmp/artifacts
-            mkdir -p ${TEST_RESULTS}
+            mkdir -p /tmp/test-results
       - run:
           name: Run tests
           command: |
             PACKAGE_NAMES=$(go list ./... | circleci tests split --split-by=timings --timings-type=classname)
-            gotestsum --junitfile ${TEST_RESULTS}/gotestsum-report.xml -- -coverprofile=c.out $PACKAGE_NAMES
+            gotestsum --junitfile /tmp/test-results/gotestsum-report.xml -- -coverprofile=c.out $PACKAGE_NAMES
             go tool cover -html=c.out -o coverage.html
             mv coverage.html /tmp/artifacts 
       - run:
@@ -43,7 +42,7 @@ jobs:
       - store_artifacts:
           path: /tmp/artifacts
       - store_test_results:
-          path: ${TEST_RESULTS}
+          path: /tmp/test-results
 
 workflows:
   version: 2
