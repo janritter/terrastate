@@ -12,7 +12,6 @@ jobs:
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
-            ./cc-test-reporter before-build
       - run:
           name: Install dependencies
           command: |
@@ -26,19 +25,11 @@ jobs:
           name: Run tests
           command: |
             PACKAGE_NAMES=$(go list ./... | circleci tests split --split-by=timings --timings-type=classname)
+            ./cc-test-reporter before-build
             gotestsum --junitfile /tmp/test-results/gotestsum-report.xml -- -coverprofile=c.out $PACKAGE_NAMES
+             ./cc-test-reporter after-build --exit-code $?
             go tool cover -html=c.out -o coverage.html
             mv coverage.html /tmp/artifacts 
-      - run:
-          name: Send success result to CodeClimate
-          command: |
-            ./cc-test-reporter after-build --exit-code 0
-          when: on_success
-      - run:
-          name: Send failure result to CodeClimate
-          command: |
-            ./cc-test-reporter after-build --exit-code 1
-          when: on_fail
       - store_artifacts:
           path: /tmp/artifacts
       - store_test_results:
