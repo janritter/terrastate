@@ -44,17 +44,13 @@ func NewS3Backend(varFile interface{}) *S3Backend {
 	}
 }
 
-func (backend *S3Backend) Generate() error {
+func (backend *S3Backend) Generate() {
 	backend.VarParser.Process(stateFileAttributes)
 
 	helper.PrintStateFileAttributes(stateFileAttributes)
 
 	helper.RemoveDotTerraformFolder(backend.VarFile)
 
-	cre := creator.NewCreator()
-	cre.Create(stateFileAttributes, "s3")
-
-	// err = createBackendConfigurationFile(stateParams)
-	// return errx
-	return nil
+	fileCreator := creator.NewCreator()
+	fileCreator.Create(stateFileAttributes, "s3")
 }
