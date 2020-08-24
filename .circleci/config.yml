@@ -24,13 +24,14 @@ jobs:
           name: Run tests
           command: |
             go test ./... -coverprofile c.out -v
-            export STATUS_CODE=$?
+            export STATUS_CODE=$? >> $BASH_ENV
             go tool cover -html=c.out -o coverage.html
             mv coverage.html /tmp/artifacts
       - run:
           name: Send test result to CodeClimate
           command: |
-              ./cc-test-reporter after-build --exit-code $STATUS_CODE
+            source $BASH_ENV
+            ./cc-test-reporter after-build --exit-code $STATUS_CODE
           when: always
       - store_artifacts:
           path: /tmp/artifacts
