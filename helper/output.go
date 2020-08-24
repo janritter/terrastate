@@ -2,18 +2,16 @@ package helper
 
 import (
 	"fmt"
-	"reflect"
+
+	"github.com/janritter/terrastate/backend/types"
 )
 
-func PrintStateValues(in interface{}) {
-	v := reflect.ValueOf(in)
+func PrintStateFileAttributes(attributes []*types.StateFileAttribute) {
 	fmt.Println("")
 	fmt.Println("------- Using the following values -------")
-	for i := 0; i < v.NumField(); i++ {
-		name := v.Type().Field(i).Name
-		value := v.Field(i).Interface()
-		if value != "" {
-			fmt.Printf("%s = %s \n", name, v.Field(i).Interface())
+	for _, attribute := range attributes {
+		if attribute.Given {
+			fmt.Printf("%s = %s \n", attribute.AttributeKey, attribute.Value)
 		}
 	}
 	fmt.Println("------------------------------------------")
