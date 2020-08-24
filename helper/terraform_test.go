@@ -27,9 +27,8 @@ func TestRemoveDotTerraformFolderDeactivated(t *testing.T) {
 	}
 	path := createTestFolderAndFile()
 
-	err := RemoveDotTerraformFolder(varFileContent)
+	RemoveDotTerraformFolder(varFileContent)
 
-	assert.Nil(t, err)
 	assert.FileExists(t, path)
 
 	removeTestFolderAndFile()
@@ -41,9 +40,8 @@ func TestRemoveDotTerraformFolderValueNotSet(t *testing.T) {
 	}
 	path := createTestFolderAndFile()
 
-	err := RemoveDotTerraformFolder(varFileContent)
+	RemoveDotTerraformFolder(varFileContent)
 
-	assert.Nil(t, err)
 	assert.FileExists(t, path)
 
 	removeTestFolderAndFile()
@@ -55,9 +53,8 @@ func TestRemoveDotTerraformFolder(t *testing.T) {
 	}
 	path := createTestFolderAndFile()
 
-	err := RemoveDotTerraformFolder(varFileContent)
+	RemoveDotTerraformFolder(varFileContent)
 
-	assert.Nil(t, err)
 	assert.NoFileExists(t, path)
 
 	removeTestFolderAndFile()
