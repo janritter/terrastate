@@ -1,9 +1,9 @@
 package parser
 
+import "github.com/janritter/terrastate/backend/types"
+
 type ParserAPI interface {
-	GetBackendParameterString(key string, optional bool) (string, bool, error)
-	GetBackendParameterInt(key string, optional bool) (int, bool, error)
-	GetBackendParameterBool(key string, optional bool) (bool, bool, error)
+	Process([]*types.StateFileAttribute)
 }
 
 type Parser struct {

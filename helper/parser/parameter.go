@@ -2,10 +2,49 @@ package parser
 
 import (
 	"errors"
+	"os"
 	"reflect"
 
 	"github.com/fatih/color"
+	"github.com/janritter/terrastate/backend/types"
 )
+
+func (parser *Parser) Process(stateFileAttributes []*types.StateFileAttribute) {
+	errorRun := false
+	switch parser.VarFileContent.(type) {
+	case map[string]interface{}:
+		mapped := parser.VarFileContent.(map[string]interface{})
+
+		for _, attribute := range stateFileAttributes {
+			attribute.Given = mapped[attribute.VarKey] != nil
+
+			if attribute.Required && !attribute.Given {
+				err := errors.New(attribute.VarKey + " must be defined, was not found in the var-file")
+				color.Red(err.Error())
+				errorRun = true
+			}
+
+			if attribute.Given {
+				if reflect.TypeOf(mapped[attribute.VarKey]).String() != attribute.ExpectedType {
+					err := errors.New("Expected " + attribute.VarKey + " to be " + attribute.ExpectedType + ", was " + reflect.TypeOf(mapped[attribute.VarKey]).String())
+					color.Red(err.Error())
+					errorRun = true
+				} else {
+					attribute.Value = mapped[attribute.VarKey]
+				}
+			}
+		}
+
+		if errorRun {
+			os.Exit(1)
+		}
+
+	default:
+		err := errors.New("Unknown var-file format")
+		color.Red(err.Error())
+		os.Exit(1)
+	}
+}
 
 func (parser *Parser) GetBackendParameterString(key string, optional bool) (string, bool, error) {
 	iface, valueSet, err := parser.getSingleBackendParameterInterface(key, optional, "string")
