@@ -26,7 +26,7 @@ jobs:
           name: Run tests
           command: |
             PACKAGE_NAMES=$(go list ./... | circleci tests split --split-by=timings --timings-type=classname)
-            gotestsum -coverprofile=cover.out --junitfile ${TEST_RESULTS}/gotestsum-report.xml -- $PACKAGE_NAMES
+            gotestsum --junitfile ${TEST_RESULTS}/gotestsum-report.xml -- -coverprofile=cover.out $PACKAGE_NAMES
             go tool cover -html=c.out -o coverage.html
             mv coverage.html /tmp/artifacts 
       - run:
