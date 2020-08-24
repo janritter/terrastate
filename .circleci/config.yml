@@ -27,19 +27,17 @@ jobs:
           name: Run tests
           command: |
             PACKAGE_NAMES=$(go list ./... | circleci tests split --split-by=timings --timings-type=classname)
-            gotestsum --junitfile ${TEST_RESULTS}/gotestsum-report.xml -- -coverprofile=cover.out $PACKAGE_NAMES
+            gotestsum --junitfile ${TEST_RESULTS}/gotestsum-report.xml -- -coverprofile=c.out $PACKAGE_NAMES
             go tool cover -html=c.out -o coverage.html
             mv coverage.html /tmp/artifacts 
       - run:
           name: Send success result to CodeClimate
           command: |
-            source $BASH_ENV
             ./cc-test-reporter after-build --exit-code 0
           when: on_success
       - run:
           name: Send failure result to CodeClimate
           command: |
-            source $BASH_ENV
             ./cc-test-reporter after-build --exit-code 1
           when: on_fail
       - store_artifacts:
