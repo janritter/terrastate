@@ -22,6 +22,7 @@ jobs:
           name: "Create a temp directory for artifacts"
           command: |
             mkdir -p /tmp/artifacts
+            mkdir -p ${TEST_RESULTS}
       - run:
           name: Run tests
           command: |
