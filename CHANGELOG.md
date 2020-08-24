@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/janritter/terrastate/compare/1.6.0...1.6.1) (2020-08-24)
+
+
+### Bug Fixes
+
+* changed acl to state_acl to match other variables ([a43ffa0](https://github.com/janritter/terrastate/commit/a43ffa05958d6ea31b4e2b5ba3f85426e7043c0d))
+
 # [1.6.0](https://github.com/janritter/terrastate/compare/1.5.0...1.6.0) (2020-08-19)
 
 
