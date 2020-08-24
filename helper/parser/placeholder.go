@@ -1,4 +1,4 @@
-package helper
+package parser
 
 import (
 	"fmt"
@@ -29,7 +29,7 @@ func getCurrentDir() string {
 	return filepath.Base(path)
 }
 
-func GetStringAfterSettingPlaceholderValues(input string) string {
+func getStringAfterSettingPlaceholderValues(input string) string {
 	output := strings.ReplaceAll(input, " ", "")
 
 	for _, placeholder := range placeholders {
