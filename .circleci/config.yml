@@ -53,7 +53,9 @@ jobs:
           name: Install additional packages
           command: |
             sudo apt-get install python3 python3-pip git -y
+            go get github.com/mitchellh/gox
             go install github.com/mitchellh/gox
+            go get github.com/tcnksm/ghr
             go install github.com/tcnksm/ghr
       - checkout
       - run:
