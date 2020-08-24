@@ -8,10 +8,10 @@ import (
 	"github.com/janritter/terrastate/backend/s3"
 )
 
-func GetBackendInterface(backendType string) (iface.BackendAPI, error) {
+func GetBackendInterface(backendType string, varFile interface{}) (iface.BackendAPI, error) {
 	switch backendType {
 	case "s3":
-		return s3.NewS3Backend(), nil
+		return s3.NewS3Backend(varFile), nil
 	}
 
 	err := errors.New("Backend " + backendType + " is currently not supported")
