@@ -68,7 +68,7 @@ var rootCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		backendInterface, err := backend.GetBackendInterface(backendType)
+		backendInterface, err := backend.GetBackendInterface(backendType, decoded)
 		if err != nil {
 			os.Exit(1)
 		}
@@ -77,7 +77,7 @@ var rootCmd = &cobra.Command{
 			BackendAPI: backendInterface,
 		}
 
-		err = backendBase.GenerateConfigurationForBackend(decoded)
+		err = backendBase.Generate()
 		if err != nil {
 			os.Exit(1)
 		}
