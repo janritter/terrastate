@@ -35,6 +35,60 @@ jobs:
       - store_test_results:
           path: /tmp/test-results
 
+  release:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - run: "npm install @semantic-release/changelog &&
+              npm install @semantic-release/git &&
+              npx semantic-release"
+
+  build:
+    docker:
+      - image: circleci/golang
+    working_directory: /go/src/github.com/janritter/terrastate
+    steps:
+      - run:
+          name: Install additional packages
+          command: |
+            sudo apt-get install python3 python3-pip git -y
+            go install github.com/mitchellh/gox
+            go install github.com/tcnksm/ghr
+      - checkout
+      - run:
+          name: Get latest master version, which includes the git tag from the release step
+          command: |
+            git checkout master
+      - run:
+          name: Get latest master version, which includes the git tag from the release step
+          command: |
+            git checkout master
+      - run:
+          name: Install dependencies
+          command: |
+            make prepare
+      - run:
+          name: Build binaries
+          command: |
+            export NOW=$(date +'%Y-%m-%d_%T')
+            gox -output "dist/{{.OS}}_{{.Arch}}_{{.Dir}}" -ldflags "-X github.com/janritter/terrastate/cmd.gitSha=`git rev-parse HEAD` -X github.com/janritter/terrastate/cmd.buildTime=$NOW -X github.com/janritter/terrastate/cmd.version=`git describe --abbrev=0 --tags`" -arch="amd64" -os="linux darwin windows"
+      - run:
+          name: Upload binaries to GitHub
+          command: |
+            ghr --username janritter --token $GITHUB_TOKEN --replace $(git describe --abbrev=0 --tags) dist/
+      - run:
+          name: Create new Homebrew formula
+          command: |
+            export FILE_HASH_MAC=`sha256sum dist/darwin_amd64_terrastate | awk '{print $1}'`
+            export FILE_HASH_LINUX=`sha256sum dist/linux_amd64_terrastate | awk '{print $1}'`
+            export VERSION=`git describe --abbrev=0 --tags`
+            git clone https://${GITHUB_TOKEN}@github.com/janritter/homebrew-terrastate.git
+            cd homebrew-terrastate
+            pip3 install --user jinja2
+            python3 generateFormula.py
+            'git add terrastate.rb && git commit -m "chore: deployment of version $VERSION - $NOW" && git push'
+
 workflows:
   version: 2
   build:
@@ -49,4 +103,18 @@ workflows:
               - /test\/.*/
               - /refactor\/.*/
               - /perf\/.*/
+              - master
+      - release:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+              - master
+      - build:
+          requires:
+            - release
+          filters:
+            branches:
+              only:
               - master
