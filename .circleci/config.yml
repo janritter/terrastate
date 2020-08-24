@@ -4,7 +4,7 @@ jobs:
   test:
     docker:
       - image: circleci/golang
-    working_directory: /go/github.com/janritter/terrastate
+    working_directory: /go/src/github.com/janritter/terrastate
     steps:
       - checkout
       - run:
