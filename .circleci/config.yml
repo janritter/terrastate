@@ -89,7 +89,7 @@ jobs:
             cd homebrew-terrastate
             pip3 install --user jinja2
             python3 generateFormula.py
-            'git add terrastate.rb && git commit -m "chore: deployment of version $VERSION - $NOW" && git push'
+            git add terrastate.rb && git commit -m "chore: deployment of version $VERSION - $NOW" && git push
 
 workflows:
   version: 2
