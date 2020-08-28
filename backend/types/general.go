@@ -1,8 +1,5 @@
 package types
 
-type stateFileAttributes struct {
-}
-
 type StateFileAttribute struct {
 	AttributeKey string
 	VarKey       string
