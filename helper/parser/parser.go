@@ -3,7 +3,8 @@ package parser
 import "github.com/janritter/terrastate/backend/types"
 
 type ParserAPI interface {
-	Process([]*types.StateFileAttribute)
+	Gather(stateFileAttributes []*types.StateFileAttribute)
+	GatherTerrastateVariables(terrastateAttribute map[string]*types.TerrastateAttribute)
 }
 
 type Parser struct {

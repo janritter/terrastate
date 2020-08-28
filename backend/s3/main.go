@@ -35,12 +35,12 @@ type S3BackendAPI interface {
 }
 
 type S3Backend struct {
-	parser  *parserAPI.Parser
-	creator *creatorAPI.Creator
-	helper  *helperAPI.Helper
+	parser  parserAPI.ParserAPI
+	creator creatorAPI.CreatorAPI
+	helper  helperAPI.HelperAPI
 }
 
-func NewS3Backend(parser *parserAPI.Parser, creator *creatorAPI.Creator, helper *helperAPI.Helper, terrastateAttributes map[string]*types.TerrastateAttribute) *S3Backend {
+func NewS3Backend(parser parserAPI.ParserAPI, creator creatorAPI.CreatorAPI, helper helperAPI.HelperAPI, terrastateAttributes map[string]*types.TerrastateAttribute) *S3Backend {
 	backendAttributes.TerrastateAttributes = terrastateAttributes
 
 	return &S3Backend{

@@ -9,7 +9,7 @@ import (
 )
 
 type CreatorAPI interface {
-	Create([]*types.StateFileAttribute)
+	Create(stateFileAttributes []*types.StateFileAttribute, backend string)
 }
 
 type Creator struct {
