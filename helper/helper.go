@@ -3,9 +3,8 @@ package helper
 import "github.com/janritter/terrastate/backend/types"
 
 type HelperAPI interface {
-	GetBackendType(in interface{}) (string, error)
 	PrintStateFileAttributes(attributes []*types.StateFileAttribute)
-	RemoveDotTerraformFolder(in interface{})
+	RemoveDotTerraformFolder(shouldRemove bool)
 }
 
 type Helper struct {
