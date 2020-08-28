@@ -2,29 +2,31 @@ package s3
 
 import (
 	"github.com/janritter/terrastate/backend/types"
-	"github.com/janritter/terrastate/helper"
-	"github.com/janritter/terrastate/helper/creator"
-	"github.com/janritter/terrastate/helper/parser"
+	helperAPI "github.com/janritter/terrastate/helper"
+	creatorAPI "github.com/janritter/terrastate/helper/creator"
+	parserAPI "github.com/janritter/terrastate/helper/parser"
 )
 
-var stateFileAttributes = []*types.StateFileAttribute{
-	{
-		AttributeKey: "bucket",
-		VarKey:       "state_bucket",
-		ExpectedType: "string",
-		Required:     true,
-	},
-	{
-		AttributeKey: "key",
-		VarKey:       "state_key",
-		ExpectedType: "string",
-		Required:     true,
-	},
-	{
-		AttributeKey: "region",
-		VarKey:       "region",
-		ExpectedType: "string",
-		Required:     true,
+var backendAttributes = types.BackendAttributes{
+	StateFileAttributes: []*types.StateFileAttribute{
+		{
+			AttributeKey: "bucket",
+			VarKey:       "state_bucket",
+			ExpectedType: "string",
+			Required:     true,
+		},
+		{
+			AttributeKey: "key",
+			VarKey:       "state_key",
+			ExpectedType: "string",
+			Required:     true,
+		},
+		{
+			AttributeKey: "region",
+			VarKey:       "region",
+			ExpectedType: "string",
+			Required:     true,
+		},
 	},
 }
 
@@ -33,23 +35,27 @@ type S3BackendAPI interface {
 }
 
 type S3Backend struct {
-	VarFile interface{}
+	parser  *parserAPI.Parser
+	creator *creatorAPI.Creator
+	helper  *helperAPI.Helper
 }
 
-func NewS3Backend(varFile interface{}) *S3Backend {
+func NewS3Backend(parser *parserAPI.Parser, creator *creatorAPI.Creator, helper *helperAPI.Helper, terrastateAttributes map[string]*types.TerrastateAttribute) *S3Backend {
+	backendAttributes.TerrastateAttributes = terrastateAttributes
+
 	return &S3Backend{
-		VarFile: varFile,
+		parser:  parser,
+		creator: creator,
+		helper:  helper,
 	}
 }
 
 func (backend *S3Backend) Generate() {
-	varParser := parser.NewParser(backend.VarFile)
-	varParser.Process(stateFileAttributes)
+	backend.parser.Gather(backendAttributes.StateFileAttributes)
 
-	helper.PrintStateFileAttributes(stateFileAttributes)
+	backend.helper.PrintStateFileAttributes(backendAttributes.StateFileAttributes)
 
-	helper.RemoveDotTerraformFolder(backend.VarFile)
+	backend.helper.RemoveDotTerraformFolder(backendAttributes.TerrastateAttributes["state_auto_remove_old"].Value.(bool))
 
-	fileCreator := creator.NewCreator()
-	fileCreator.Create(stateFileAttributes, "s3")
+	backend.creator.Create(backendAttributes.StateFileAttributes, "s3")
 }

@@ -6,7 +6,7 @@ import (
 	"github.com/janritter/terrastate/backend/types"
 )
 
-func PrintStateFileAttributes(attributes []*types.StateFileAttribute) {
+func (helper *Helper) PrintStateFileAttributes(attributes []*types.StateFileAttribute) {
 	fmt.Println("")
 	fmt.Println("------- Using the following values -------")
 	for _, attribute := range attributes {
