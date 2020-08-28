@@ -21,39 +21,22 @@ func removeTestFolderAndFile() {
 	os.RemoveAll(path)
 }
 
-func TestRemoveDotTerraformFolderDeactivated(t *testing.T) {
-	varFileContent := map[string]interface{}{
-		"state_auto_remove_old": false,
-	}
+func TestRemoveDotTerraformFolderFalset(t *testing.T) {
 	path := createTestFolderAndFile()
 
-	RemoveDotTerraformFolder(varFileContent)
+	helper := NewHelper()
+	helper.RemoveDotTerraformFolder(false)
 
 	assert.FileExists(t, path)
 
 	removeTestFolderAndFile()
 }
 
-func TestRemoveDotTerraformFolderValueNotSet(t *testing.T) {
-	varFileContent := map[string]interface{}{
-		"state_auto_remove_old": false,
-	}
+func TestRemoveDotTerraformFolderTrue(t *testing.T) {
 	path := createTestFolderAndFile()
 
-	RemoveDotTerraformFolder(varFileContent)
-
-	assert.FileExists(t, path)
-
-	removeTestFolderAndFile()
-}
-
-func TestRemoveDotTerraformFolder(t *testing.T) {
-	varFileContent := map[string]interface{}{
-		"state_auto_remove_old": true,
-	}
-	path := createTestFolderAndFile()
-
-	RemoveDotTerraformFolder(varFileContent)
+	helper := NewHelper()
+	helper.RemoveDotTerraformFolder(true)
 
 	assert.NoFileExists(t, path)
 
