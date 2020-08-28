@@ -33,19 +33,18 @@ type S3BackendAPI interface {
 }
 
 type S3Backend struct {
-	VarParser *parser.Parser
-	VarFile   interface{}
+	VarFile interface{}
 }
 
 func NewS3Backend(varFile interface{}) *S3Backend {
 	return &S3Backend{
-		VarParser: parser.NewParser(varFile),
-		VarFile:   varFile,
+		VarFile: varFile,
 	}
 }
 
 func (backend *S3Backend) Generate() {
-	backend.VarParser.Process(stateFileAttributes)
+	varParser := parser.NewParser(backend.VarFile)
+	varParser.Process(stateFileAttributes)
 
 	helper.PrintStateFileAttributes(stateFileAttributes)
 
