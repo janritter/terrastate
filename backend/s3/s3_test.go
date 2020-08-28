@@ -15,6 +15,5 @@ func TestNewS3Backend(t *testing.T) {
 
 	assert.NotEmpty(t, backend, "Expected to be not empty")
 	assert.NotNil(t, backend, "Expected not to be nil")
-	assert.NotNil(t, backend.VarParser, "Expected parser not to be nil")
 	assert.Equal(t, testMap, backend.VarFile)
 }
