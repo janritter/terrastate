@@ -27,7 +27,6 @@ import (
 	"os"
 
 	"github.com/janritter/terrastate/backend"
-	"github.com/janritter/terrastate/helper"
 
 	"github.com/janritter/terrastate/backend/iface"
 
@@ -63,12 +62,7 @@ var rootCmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		backendType, err := helper.GetBackendType(decoded)
-		if err != nil {
-			os.Exit(1)
-		}
-
-		backendInterface, err := backend.GetBackendInterface(backendType, decoded)
+		backendInterface, err := backend.GetBackendInterface(decoded)
 		if err != nil {
 			os.Exit(1)
 		}
