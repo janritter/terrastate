@@ -1,177 +1,238 @@
 package parser
 
 import (
-	"errors"
 	"testing"
 
+	"github.com/janritter/terrastate/backend/types"
 	"github.com/stretchr/testify/assert"
 )
 
-//
-// GetBackendParameterString
-//
-func TestGetBackendParameterString(t *testing.T) {
+func TestGatherSuccess(t *testing.T) {
 	testMap := make(map[string]interface{})
-	testMap["testKey"] = "testValue"
+	testMap["state_bucket"] = "test_bucket"
+	testMap["test_number"] = 0
+
+	stateFileAttributes := []*types.StateFileAttribute{
+		{
+			AttributeKey: "bucket",
+			VarKey:       "state_bucket",
+			ExpectedType: "string",
+			Required:     true,
+		},
+		{
+			AttributeKey: "number",
+			VarKey:       "test_number",
+			ExpectedType: "int",
+			Required:     true,
+		},
+		{
+			AttributeKey: "bool",
+			VarKey:       "bool_test",
+			ExpectedType: "bool",
+			Required:     false,
+		},
+	}
 
 	parser := NewParser(testMap)
-	result, valueSet, err := parser.GetBackendParameterString("testKey", false)
 
-	assert.Nil(t, err, "Expected no error")
-	assert.Equal(t, "testValue", result)
-	assert.Equal(t, true, valueSet)
+	parser.Gather(stateFileAttributes)
+
+	assert.Equal(t, testMap["state_bucket"], stateFileAttributes[0].Value)
+	assert.True(t, stateFileAttributes[0].Given)
+
+	assert.Equal(t, testMap["test_number"], stateFileAttributes[1].Value)
+	assert.True(t, stateFileAttributes[1].Given)
 }
 
-func TestGetBackendParameterStringWrongType(t *testing.T) {
-	testMap := make(map[string]interface{})
-	testMap["testKey"] = 0
-
-	parser := NewParser(testMap)
-	result, valueSet, err := parser.GetBackendParameterString("testKey", false)
-
-	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("Expected testKey to be string, was int"), err)
-	assert.Equal(t, "", result)
-	assert.Equal(t, false, valueSet)
-}
-
-func TestGetBackendParameterStringNotSetOptional(t *testing.T) {
+func TestGatherMissingRequiredParameter(t *testing.T) {
 	testMap := make(map[string]interface{})
 
-	parser := NewParser(testMap)
-	result, valueSet, err := parser.GetBackendParameterString("testKey", true)
+	stateFileAttributes := []*types.StateFileAttribute{
+		{
+			AttributeKey: "bucket",
+			VarKey:       "state_bucket",
+			ExpectedType: "string",
+			Required:     true,
+		},
+	}
 
-	assert.Nil(t, err, "Expected no error")
-	assert.Equal(t, "", result)
-	assert.Equal(t, false, valueSet)
+	// Check for osExit
+	oldOsExit := osExit
+	defer func() { osExit = oldOsExit }()
+
+	var got int
+	testExit := func(code int) {
+		got = code
+	}
+	osExit = testExit
+	// End check for osExit
+
+	parser := NewParser(testMap)
+
+	parser.Gather(stateFileAttributes)
+
+	assert.Nil(t, stateFileAttributes[0].Value)
+	assert.False(t, stateFileAttributes[0].Given)
+	assert.Equal(t, got, 1)
 }
 
-func TestGetBackendParameterStringNotSetNotOptional(t *testing.T) {
+func TestGatherWrongParameterType(t *testing.T) {
+	testMap := make(map[string]interface{})
+	testMap["test_number"] = "not_a_number"
+
+	stateFileAttributes := []*types.StateFileAttribute{
+		{
+			AttributeKey: "bucket",
+			VarKey:       "test_number",
+			ExpectedType: "int",
+			Required:     true,
+		},
+	}
+
+	// Check for osExit
+	oldOsExit := osExit
+	defer func() { osExit = oldOsExit }()
+
+	var got int
+	testExit := func(code int) {
+		got = code
+	}
+	osExit = testExit
+	// End check for osExit
+
+	parser := NewParser(testMap)
+
+	parser.Gather(stateFileAttributes)
+
+	assert.Nil(t, stateFileAttributes[0].Value)
+	assert.False(t, stateFileAttributes[0].Given)
+	assert.Equal(t, got, 1)
+}
+
+func TestGatherUnknownFormat(t *testing.T) {
+	testMap := make(map[int]interface{})
+
+	stateFileAttributes := []*types.StateFileAttribute{}
+
+	// Check for osExit
+	oldOsExit := osExit
+	defer func() { osExit = oldOsExit }()
+
+	var got int
+	testExit := func(code int) {
+		got = code
+	}
+	osExit = testExit
+	// End check for osExit
+
+	parser := NewParser(testMap)
+
+	parser.Gather(stateFileAttributes)
+
+	assert.Equal(t, got, 1)
+}
+
+func TestGatherTerrastateVariablesSuccess(t *testing.T) {
+	testMap := make(map[string]interface{})
+	testMap["state_backend"] = "backend"
+
+	terrastateAttributes := map[string]*types.TerrastateAttribute{
+		"state_backend": {
+			ExpectedType: "string",
+			Required:     true,
+		},
+		"state_auto_remove_old": {
+			ExpectedType: "bool",
+			Required:     false,
+			Value:        false, // default
+		},
+	}
+
+	parser := NewParser(testMap)
+
+	parser.GatherTerrastateVariables(terrastateAttributes)
+
+	assert.Equal(t, testMap["state_backend"], terrastateAttributes["state_backend"].Value)
+	assert.False(t, terrastateAttributes["state_auto_remove_old"].Value.(bool))
+}
+
+func TestGatherTerrastateVariablesMissingRequiredParameter(t *testing.T) {
 	testMap := make(map[string]interface{})
 
-	parser := NewParser(testMap)
-	result, valueSet, err := parser.GetBackendParameterString("testKey", false)
+	terrastateAttributes := map[string]*types.TerrastateAttribute{
+		"state_backend": {
+			ExpectedType: "string",
+			Required:     true,
+		},
+	}
 
-	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("testKey must be defined, was not found in var-file"), err)
-	assert.Equal(t, "", result)
-	assert.Equal(t, false, valueSet)
+	// Check for osExit
+	oldOsExit := osExit
+	defer func() { osExit = oldOsExit }()
+
+	var got int
+	testExit := func(code int) {
+		got = code
+	}
+	osExit = testExit
+	// End check for osExit
+
+	parser := NewParser(testMap)
+
+	parser.GatherTerrastateVariables(terrastateAttributes)
+
+	assert.Equal(t, got, 1)
 }
 
-//
-// GetBackendParameterInt
-//
-
-func TestGetBackendParameterInt(t *testing.T) {
+func TestGatherTerrastateVariablesWrongParameterType(t *testing.T) {
 	testMap := make(map[string]interface{})
-	testMap["testKey"] = 10
+	testMap["state_backend"] = 0
+
+	terrastateAttributes := map[string]*types.TerrastateAttribute{
+		"state_backend": {
+			ExpectedType: "string",
+			Required:     true,
+		},
+	}
+
+	// Check for osExit
+	oldOsExit := osExit
+	defer func() { osExit = oldOsExit }()
+
+	var got int
+	testExit := func(code int) {
+		got = code
+	}
+	osExit = testExit
+	// End check for osExit
 
 	parser := NewParser(testMap)
-	result, valueSet, err := parser.GetBackendParameterInt("testKey", false)
 
-	assert.Nil(t, err, "Expected no error")
-	assert.Equal(t, 10, result)
-	assert.Equal(t, true, valueSet)
+	parser.GatherTerrastateVariables(terrastateAttributes)
+
+	assert.Nil(t, terrastateAttributes["state_backend"].Value)
+	assert.Equal(t, got, 1)
 }
 
-func TestGetBackendParameterIntWrongType(t *testing.T) {
-	testMap := make(map[string]interface{})
-	testMap["testKey"] = "10"
+func TestGatherTerrastateVariablesUnknownFormat(t *testing.T) {
+	testMap := make(map[int]interface{})
+
+	terrastateAttributes := map[string]*types.TerrastateAttribute{}
+
+	// Check for osExit
+	oldOsExit := osExit
+	defer func() { osExit = oldOsExit }()
+
+	var got int
+	testExit := func(code int) {
+		got = code
+	}
+	osExit = testExit
+	// End check for osExit
 
 	parser := NewParser(testMap)
-	result, valueSet, err := parser.GetBackendParameterInt("testKey", false)
 
-	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("Expected testKey to be int, was string"), err)
-	assert.Equal(t, 0, result)
-	assert.Equal(t, false, valueSet)
-}
+	parser.GatherTerrastateVariables(terrastateAttributes)
 
-func TestGetBackendParameterIntNotSetOptional(t *testing.T) {
-	testMap := make(map[string]interface{})
-
-	parser := NewParser(testMap)
-	result, valueSet, err := parser.GetBackendParameterInt("testKey", true)
-
-	assert.Nil(t, err, "Expected no error")
-	assert.Equal(t, 0, result)
-	assert.Equal(t, false, valueSet)
-}
-
-func TestGetBackendParameterIntNotSetNotOptional(t *testing.T) {
-	testMap := make(map[string]interface{})
-
-	parser := NewParser(testMap)
-	result, valueSet, err := parser.GetBackendParameterInt("testKey", false)
-
-	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("testKey must be defined, was not found in var-file"), err)
-	assert.Equal(t, 0, result)
-	assert.Equal(t, false, valueSet)
-}
-
-//
-// GetBackendParameterBool
-//
-
-func TestGetBackendParameterBool(t *testing.T) {
-	testMap := make(map[string]interface{})
-	testMap["testKey"] = false
-
-	parser := NewParser(testMap)
-	result, valueSet, err := parser.GetBackendParameterBool("testKey", false)
-
-	assert.Nil(t, err, "Expected no error")
-	assert.Equal(t, false, result)
-	assert.Equal(t, true, valueSet)
-}
-
-func TestGetBackendParameterBoolWrongType(t *testing.T) {
-	testMap := make(map[string]interface{})
-	testMap["testKey"] = "false"
-
-	parser := NewParser(testMap)
-	result, valueSet, err := parser.GetBackendParameterBool("testKey", false)
-
-	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("Expected testKey to be bool, was string"), err)
-	assert.Equal(t, false, result)
-	assert.Equal(t, false, valueSet)
-}
-
-func TestGetBackendParameterBoolNotSetOptional(t *testing.T) {
-	testMap := make(map[string]interface{})
-
-	parser := NewParser(testMap)
-	result, valueSet, err := parser.GetBackendParameterBool("testKey", true)
-
-	assert.Nil(t, err, "Expected no error")
-	assert.Equal(t, false, result)
-	assert.Equal(t, false, valueSet)
-}
-
-func TestGetBackendParameterBoolNotSetNotOptional(t *testing.T) {
-	testMap := make(map[string]interface{})
-
-	parser := NewParser(testMap)
-	result, valueSet, err := parser.GetBackendParameterBool("testKey", false)
-
-	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("testKey must be defined, was not found in var-file"), err)
-	assert.Equal(t, false, result)
-	assert.Equal(t, false, valueSet)
-}
-
-//
-// getSingleBackendParameterInterface
-//
-
-func TestGetSingleBackendParameterInterfaceInvalidFileContent(t *testing.T) {
-	parser := NewParser(nil)
-	result, valueSet, err := parser.getSingleBackendParameterInterface("testKey", false, "string")
-
-	assert.Error(t, err, "Expected error")
-	assert.Equal(t, errors.New("Unknown var-file format"), err)
-	assert.Equal(t, nil, result)
-	assert.Equal(t, false, valueSet)
+	assert.Equal(t, got, 1)
 }
