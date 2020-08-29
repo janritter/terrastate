@@ -9,6 +9,129 @@ import (
 
 var backendAttributes = types.BackendAttributes{
 	StateFileAttributes: []*types.StateFileAttribute{
+		// Credentials and Shared Configuration
+		{
+			AttributeKey: "region",
+			VarKey:       "region",
+			ExpectedType: "string",
+			Required:     true,
+		},
+		{
+			AttributeKey: "access_key",
+			VarKey:       "state_access_key",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "secret_key",
+			VarKey:       "state_secret_key",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "iam_endpoint",
+			VarKey:       "state_iam_endpoint",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "max_retries",
+			VarKey:       "state_max_retries",
+			ExpectedType: "int",
+			Required:     false,
+		},
+		{
+			AttributeKey: "profile",
+			VarKey:       "state_profile",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "shared_credentials_file",
+			VarKey:       "state_shared_credentials_file",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "skip_credentials_validation",
+			VarKey:       "state_skip_credentials_validation",
+			ExpectedType: "bool",
+			Required:     false,
+		},
+		{
+			AttributeKey: "skip_region_validation",
+			VarKey:       "state_skip_region_validation",
+			ExpectedType: "bool",
+			Required:     false,
+		},
+		{
+			AttributeKey: "skip_metadata_api_check",
+			VarKey:       "state_skip_metadata_api_check",
+			ExpectedType: "bool",
+			Required:     false,
+		},
+		{
+			AttributeKey: "sts_endpoint",
+			VarKey:       "state_sts_endpoint",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "token",
+			VarKey:       "state_token",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		// Assume Role Configuration
+		{
+			AttributeKey: "assume_role_duration_seconds",
+			VarKey:       "state_assume_role_duration_seconds",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "assume_role_policy",
+			VarKey:       "state_assume_role_policy",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "assume_role_policy_arns",
+			VarKey:       "state_assume_role_policy_arns",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "assume_role_tags",
+			VarKey:       "state_assume_role_tags",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "assume_role_transitive_tag_keys",
+			VarKey:       "state_assume_role_transitive_tag_keys",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "external_id",
+			VarKey:       "state_external_id",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "role_arn",
+			VarKey:       "state_role_arn",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "session_name",
+			VarKey:       "state_session_name",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		// S3 State Storage
 		{
 			AttributeKey: "bucket",
 			VarKey:       "state_bucket",
@@ -22,10 +145,59 @@ var backendAttributes = types.BackendAttributes{
 			Required:     true,
 		},
 		{
-			AttributeKey: "region",
-			VarKey:       "region",
+			AttributeKey: "acl",
+			VarKey:       "state_acl",
 			ExpectedType: "string",
-			Required:     true,
+			Required:     false,
+		},
+		{
+			AttributeKey: "encrypt",
+			VarKey:       "state_encrypt",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "endpoint",
+			VarKey:       "state_endpoint",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "force_path_style",
+			VarKey:       "state_force_path_style",
+			ExpectedType: "bool",
+			Required:     false,
+		},
+		{
+			AttributeKey: "kms_key_id",
+			VarKey:       "state_kms_key_id",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "sse_customer_key",
+			VarKey:       "state_sse_customer_key",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "workspace_key_prefix",
+			VarKey:       "state_workspace_key_prefix",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		// DynamoDB State Locking
+		{
+			AttributeKey: "dynamodb_endpoint",
+			VarKey:       "state_dynamodb_endpoint",
+			ExpectedType: "string",
+			Required:     false,
+		},
+		{
+			AttributeKey: "dynamodb_table",
+			VarKey:       "state_dynamodb_table",
+			ExpectedType: "string",
+			Required:     false,
 		},
 	},
 }
