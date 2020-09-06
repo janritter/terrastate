@@ -62,10 +62,7 @@ jobs:
           name: Get latest master version, which includes the git tag from the release step
           command: |
             git checkout master
-      - run:
-          name: Get latest master version, which includes the git tag from the release step
-          command: |
-            git checkout master
+            git pull
       - run:
           name: Install dependencies
           command: |
