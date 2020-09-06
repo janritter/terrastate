@@ -1,3 +1,19 @@
+## [1.6.2](https://github.com/janritter/terrastate/compare/1.6.1...1.6.2) (2020-09-06)
+
+
+### Performance Improvements
+
+* **rework:** changed the output function to work with the new attributes slice ([222ea3d](https://github.com/janritter/terrastate/commit/222ea3d5ebf017339c4714556bf79d3899f9c29e))
+* **rework:** implemented a new creator for the state file which generates the fill fully dynamic instead of a template ([20f4bcb](https://github.com/janritter/terrastate/commit/20f4bcb18e48c91199856069cade1cbd5d3cc682))
+* **rework:** implemented all attributes supported by terraform s3 backend ([e77399a](https://github.com/janritter/terrastate/commit/e77399a85874d51a4551795bb01c6c7137b894bb))
+* **rework:** moved everything to interfaces to make it more testable, also made terrastate variables configurable in a central map ([2c1fe67](https://github.com/janritter/terrastate/commit/2c1fe6712c01c8b2d1104e655191729b9b466b2f))
+* **rework:** new Process function which iterates through the attribute slice and collects the required information ([7b82da3](https://github.com/janritter/terrastate/commit/7b82da327700cda4cc5bc9881393ca13bed6acbe))
+* **rework:** readded placeholder logic ([29da81c](https://github.com/janritter/terrastate/commit/29da81cbfffdbd68ed9f31f753108cde03b281f3))
+* **rework:** reimplemented the backend specific part, implemented a struct based approach to ease adding of new backends and attributes and to lower the lines of code ([b618d3b](https://github.com/janritter/terrastate/commit/b618d3b291043bf95afca0e9f01277c6c2108718))
+* **rework:** remove unnecessary return value from Generate function ([258ee8c](https://github.com/janritter/terrastate/commit/258ee8cb5d350218d90d313c330a30ec968f231d))
+* **rework:** replaced errors with os.exit ([1bf1a58](https://github.com/janritter/terrastate/commit/1bf1a580596d12d1c96c5e0f32dff0176f47d3ad))
+* **rework:** using new Generator command of the backend ([4d6dd85](https://github.com/janritter/terrastate/commit/4d6dd85cd70996cb51f7123fc489e2b29abcb3ba))
+
 ## [1.6.1](https://github.com/janritter/terrastate/compare/1.6.0...1.6.1) (2020-08-24)
 
 
