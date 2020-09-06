@@ -4,20 +4,12 @@
 
 ## Variables
 
-| Name in .tfvars      | Name in Terraform backend config | Example                                        |
-| -------------------- | :------------------------------: | ---------------------------------------------- |
-| state_bucket         |              bucket              | my-terraform-state                             |
-| state_dynamodb_table |          dynamodb_table          | terraform-state-lock                           |
-| region               |              region              | eu-central-1                                   |
-| state_key            |               key                | terrastate/{{ current.dir }}/terraform.tfstate |
+All supported variables can be found in the `backendAttributes` struct in the [backend/s3/main.go](backend/s3/main.go) file.
 
-### Additional information about the state_key
+The `VarKey` is the variable key you should use in the variable file.
+The `AttributeKey` will be used as attribute key in the generated terraform state file.
 
-Since there are multiple keys for multiple Terraform subdirectories required, the key value contains the placeholder {{ current.dir }}.
+### Additional information about placeholders
 
-{{ current.dir }} gets automaticly replaced with the current directory before writing the terrastate.tf file.
+[Placeholder README](docs/placeholder.md)
 
-#### Examples
-
-- terrastate gets executed in my-project/ec2/ this creates the key terrastate/ec2/terraform.tfstate
-- terrastate gets executed in my-project/alb/ this creates the key terrastate/alb/terraform.tfstate
