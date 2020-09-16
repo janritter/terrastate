@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/janritter/terrastate/compare/1.6.2...1.7.0) (2020-09-16)
+
+
+### Features
+
+* added terraform flag support to apply, plan and destroy ([7d3d520](https://github.com/janritter/terrastate/commit/7d3d52054b2550e2cebacc61e1d6a638cfd548e2))
+
 ## [1.6.2](https://github.com/janritter/terrastate/compare/1.6.1...1.6.2) (2020-09-06)
 
 
