@@ -18,6 +18,18 @@
 terrastate --var-file ../../dev.tfvars
 ```
 
+### Generate statefile, init and apply in the current directory
+
+``` bash
+terrastate apply --var-file ../../dev.tfvars
+```
+
+### Generate statefile, init and apply in the current directory with additional terraform flags
+
+``` bash
+terrastate apply --var-file ../../dev.tfvars -- -auto-approve
+```
+
 This generates a statefile called terrastate.tf
 
 It will also replace an exisiting terrastate.tf file with the new infromation.
