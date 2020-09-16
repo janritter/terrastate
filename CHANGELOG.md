@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/janritter/terrastate/compare/1.7.0...1.7.1) (2020-09-16)
+
+
+### Bug Fixes
+
+* only append additional terraform args if set ([da7fae5](https://github.com/janritter/terrastate/commit/da7fae56cbf1693679dbc99ad8b3194be1e86fdb))
+
 # [1.7.0](https://github.com/janritter/terrastate/compare/1.6.2...1.7.0) (2020-09-16)
 
 
