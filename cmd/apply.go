@@ -22,6 +22,7 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/spf13/cobra"
 
@@ -38,13 +39,13 @@ var applyCmd = &cobra.Command{
 		rootCmd.Run(cmd, args)
 
 		// Terraform init
-		if err := getTerraformExecCmdForSubcommand("init", varFile).Run(); err != nil {
+		if err := getTerraformExecCmdForSubcommand("init", varFile, "").Run(); err != nil {
 			color.Red("terraform init returned the following error code: " + err.Error())
 			return
 		}
 
 		// Terraform apply
-		if err := getTerraformExecCmdForSubcommand("apply", varFile).Run(); err != nil {
+		if err := getTerraformExecCmdForSubcommand("apply", varFile, strings.Join(args, " ")).Run(); err != nil {
 			color.Red("terraform apply returned the following error code: " + err.Error())
 			return
 		}
