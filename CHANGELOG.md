@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/janritter/terrastate/compare/1.7.1...1.8.0) (2020-10-03)
+
+
+### Features
+
+* added support for refresh command - closes [#37](https://github.com/janritter/terrastate/issues/37) ([686bbc8](https://github.com/janritter/terrastate/commit/686bbc83d44b13ee829318aea12a5a2115023095))
+
 ## [1.7.1](https://github.com/janritter/terrastate/compare/1.7.0...1.7.1) (2020-09-16)
 
 
