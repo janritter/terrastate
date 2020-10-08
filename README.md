@@ -4,11 +4,9 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/235b50a37a1d73929d5c/maintainability)](https://codeclimate.com/github/janritter/terrastate/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/235b50a37a1d73929d5c/test_coverage)](https://codeclimate.com/github/janritter/terrastate/test_coverage)
 
-> Tool to manage multiple states in Terraform - Allows Multi account setups
+> Wrapper to dynamicly generate state backend configuration files for Terraform - Eases Multi Account setups
 
-## Use case
-
-> TODO
+Terrastate generates the state backend configuration file (terrastate.tf) based on variables from the given var file.
 
 ## Usage
 
