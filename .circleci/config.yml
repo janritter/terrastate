@@ -3,7 +3,7 @@ version: 2.0
 jobs:
   test:
     docker:
-      - image: circleci/golang
+      - image: cimg/go:1.16.5
     working_directory: /go/src/github.com/janritter/terrastate
     steps:
       - checkout
@@ -37,7 +37,7 @@ jobs:
 
   release:
     docker:
-      - image: circleci/node:10
+      - image: cimg/node:12.22.1
     steps:
       - checkout
       - run: "npm install @semantic-release/changelog &&
