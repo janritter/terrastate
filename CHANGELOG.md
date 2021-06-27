@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/janritter/terrastate/compare/1.8.0...1.9.0) (2021-06-27)
+
+
+### Features
+
+* updated dependencies ([3632d43](https://github.com/janritter/terrastate/commit/3632d439effb28c10c97802bc8ce3cb0df609de7))
+
 # [1.8.0](https://github.com/janritter/terrastate/compare/1.7.1...1.8.0) (2020-10-03)
 
 
