@@ -46,7 +46,7 @@ jobs:
 
   build:
     docker:
-      - image: circleci/golang
+      - image: cimg/go:1.16.5
     working_directory: /go/src/github.com/janritter/terrastate
     steps:
       - run:
@@ -54,9 +54,7 @@ jobs:
           command: |
             sudo apt-get install python3 python3-pip git -y
             go get github.com/mitchellh/gox
-            go install github.com/mitchellh/gox
             go get github.com/tcnksm/ghr
-            go install github.com/tcnksm/ghr
       - checkout
       - run:
           name: Get latest master version, which includes the git tag from the release step
