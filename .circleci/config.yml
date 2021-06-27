@@ -4,7 +4,6 @@ jobs:
   test:
     docker:
       - image: cimg/go:1.16.5
-    working_directory: /go/src/github.com/janritter/terrastate
     steps:
       - checkout
       - run:
@@ -47,7 +46,6 @@ jobs:
   build:
     docker:
       - image: cimg/go:1.16.5
-    working_directory: /go/src/github.com/janritter/terrastate
     steps:
       - run:
           name: Install additional packages
