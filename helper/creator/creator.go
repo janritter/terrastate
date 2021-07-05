@@ -36,7 +36,7 @@ func (creator *Creator) Create(stateFileAttributes []*types.StateFileAttribute, 
 	for _, attribute := range stateFileAttributes {
 		if attribute.Given {
 			value := fmt.Sprintf("%v", attribute.Value)
-			_, err = f.WriteString("		" + attribute.AttributeKey + " = \"" + value + "\"\n")
+			_, err = f.WriteString("  " + attribute.AttributeKey + " = \"" + value + "\"\n")
 			if err != nil {
 				color.Red(err.Error())
 				os.Exit(1)
