@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/janritter/terrastate/compare/1.9.0...1.10.0) (2021-09-01)
+
+
+### Features
+
+* removed unused go dep files ([84c3e75](https://github.com/janritter/terrastate/commit/84c3e75a3a00c9f6b1e965f4651e7ef31487e04e))
+
 # [1.9.0](https://github.com/janritter/terrastate/compare/1.8.0...1.9.0) (2021-06-27)
 
 
