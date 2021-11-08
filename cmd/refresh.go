@@ -26,6 +26,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // refreshCmd represents the refresh command
@@ -38,7 +39,7 @@ var refreshCmd = &cobra.Command{
 		rootCmd.Run(cmd, args)
 
 		// Terraform init
-		if err := getTerraformExecCmdForSubcommand("init", varFile, "").Run(); err != nil {
+		if err := getTerraformExecCmdForSubcommand("init", varFile, buildTFInitArgs(viper.GetBool("tf-init-upgrade"))).Run(); err != nil {
 			color.Red("terraform init returned the following error code: " + err.Error())
 			return
 		}
@@ -52,5 +53,8 @@ var refreshCmd = &cobra.Command{
 }
 
 func init() {
+	refreshCmd.PersistentFlags().BoolP("tf-init-upgrade", "", false, "If set, modules and plugins are ugpraded during terraform init")
+	viper.BindPFlag("tf-init-upgrade", rootCmd.PersistentFlags().Lookup("tf-init-upgrade"))
+
 	rootCmd.AddCommand(refreshCmd)
 }

@@ -25,6 +25,7 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 
 	"github.com/fatih/color"
 )
@@ -39,7 +40,7 @@ var applyCmd = &cobra.Command{
 		rootCmd.Run(cmd, args)
 
 		// Terraform init
-		if err := getTerraformExecCmdForSubcommand("init", varFile, "").Run(); err != nil {
+		if err := getTerraformExecCmdForSubcommand("init", varFile, buildTFInitArgs(viper.GetBool("tf-init-upgrade"))).Run(); err != nil {
 			color.Red("terraform init returned the following error code: " + err.Error())
 			return
 		}
@@ -53,5 +54,8 @@ var applyCmd = &cobra.Command{
 }
 
 func init() {
+	applyCmd.PersistentFlags().BoolP("tf-init-upgrade", "", false, "If set, modules and plugins are ugpraded during terraform init")
+	viper.BindPFlag("tf-init-upgrade", rootCmd.PersistentFlags().Lookup("tf-init-upgrade"))
+
 	rootCmd.AddCommand(applyCmd)
 }

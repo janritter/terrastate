@@ -93,8 +93,6 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "terrastate-file", "", "terrastate config file (default is $HOME/.terrastate.yaml)")
 	rootCmd.PersistentFlags().StringVar(&varFile, "var-file", "", "Terraform variables file")
-	rootCmd.PersistentFlags().BoolP("tf-init-upgrade", "", false, "If set, modules and plugins are ugpraded during terraform init")
-	viper.BindPFlag("tf-init-upgrade", rootCmd.PersistentFlags().Lookup("tf-init-upgrade"))
 }
 
 // initConfig reads in config file and ENV variables if set.
