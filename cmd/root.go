@@ -25,13 +25,16 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/janritter/terrastate/backend"
 
 	"github.com/janritter/terrastate/backend/iface"
 
 	"github.com/hashicorp/hcl"
+	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 type backends struct {
@@ -39,6 +42,7 @@ type backends struct {
 }
 
 var varFile string
+var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -85,9 +89,34 @@ func Execute() {
 }
 
 func init() {
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
+	cobra.OnInitialize(initConfig)
 
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "terrastate-file", "", "terrastate config file (default is $HOME/.terrastate.yaml)")
 	rootCmd.PersistentFlags().StringVar(&varFile, "var-file", "", "Terraform variables file")
+	rootCmd.PersistentFlags().BoolP("tf-init-upgrade", "", false, "If set, modules and plugins are ugpraded during terraform init")
+	viper.BindPFlag("tf-init-upgrade", rootCmd.PersistentFlags().Lookup("tf-init-upgrade"))
+}
+
+// initConfig reads in config file and ENV variables if set.
+func initConfig() {
+	if cfgFile != "" {
+		viper.SetConfigFile(cfgFile)
+	} else {
+		home, err := homedir.Dir()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+
+		viper.AddConfigPath(home)
+		viper.SetConfigName(".terrastate")
+	}
+
+	viper.SetEnvPrefix("terrastate")
+	viper.SetEnvKeyReplacer(strings.NewReplacer("-", "_"))
+	viper.AutomaticEnv() // read in environment variables that match
+
+	if err := viper.ReadInConfig(); err == nil {
+		fmt.Println("Using terrastate config file:", viper.ConfigFileUsed())
+	}
 }
