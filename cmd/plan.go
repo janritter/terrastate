@@ -53,8 +53,8 @@ var planCmd = &cobra.Command{
 }
 
 func init() {
-	planCmd.PersistentFlags().BoolP("tf-init-upgrade", "", false, "If set, modules and plugins are ugpraded during terraform init")
-	viper.BindPFlag("tf-init-upgrade", rootCmd.PersistentFlags().Lookup("tf-init-upgrade"))
+	planCmd.Flags().Bool("tf-init-upgrade", false, "If set, modules and plugins are ugpraded during terraform init")
+	viper.BindPFlag("tf-init-upgrade", planCmd.Flags().Lookup("tf-init-upgrade"))
 
 	rootCmd.AddCommand(planCmd)
 }
