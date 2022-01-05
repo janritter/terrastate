@@ -53,7 +53,7 @@ var refreshCmd = &cobra.Command{
 }
 
 func init() {
-	refreshCmd.Flags().Bool("tf-init-upgrade", false, "If set, modules and plugins are ugpraded during terraform init")
+	refreshCmd.Flags().BoolVar(&initUpgrade, "tf-init-upgrade", false, "If set, modules and plugins are ugpraded during terraform init")
 	viper.BindPFlag("tf-init-upgrade", refreshCmd.Flags().Lookup("tf-init-upgrade"))
 
 	rootCmd.AddCommand(refreshCmd)

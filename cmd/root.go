@@ -44,6 +44,8 @@ type backends struct {
 var varFile string
 var cfgFile string
 
+var initUpgrade bool
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "terrastate",

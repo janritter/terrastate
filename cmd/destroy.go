@@ -48,7 +48,7 @@ var destroyCmd = &cobra.Command{
 }
 
 func init() {
-	destroyCmd.Flags().Bool("tf-init-upgrade", false, "If set, modules and plugins are ugpraded during terraform init")
+	destroyCmd.Flags().BoolVar(&initUpgrade, "tf-init-upgrade", false, "If set, modules and plugins are ugpraded during terraform init")
 	viper.BindPFlag("tf-init-upgrade", destroyCmd.Flags().Lookup("tf-init-upgrade"))
 
 	rootCmd.AddCommand(destroyCmd)
