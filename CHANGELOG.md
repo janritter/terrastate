@@ -1,3 +1,17 @@
+# [1.11.0](https://github.com/janritter/terrastate/compare/1.10.0...1.11.0) (2022-01-06)
+
+
+### Bug Fixes
+
+* fixed non working tf-init-upgrade flag ([ab4d382](https://github.com/janritter/terrastate/commit/ab4d3827d4d605e95e1e6c51f67ad6f425122bcf))
+* fixed non working tf-init-upgrade flag ([d7546c7](https://github.com/janritter/terrastate/commit/d7546c713e75ad96dd268570fe2ecfa4160a2f03))
+
+
+### Features
+
+* added option to add the -upgrade flag to the terraform init command ([bd14aba](https://github.com/janritter/terrastate/commit/bd14aba558f26d1100d167cce65bb8f58ebd5452))
+* added tf-init-upgrade flag ([86a7896](https://github.com/janritter/terrastate/commit/86a789651d0721303638396f156972b0b16be4c0))
+
 # [1.10.0](https://github.com/janritter/terrastate/compare/1.9.0...1.10.0) (2021-09-01)
 
 
