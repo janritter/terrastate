@@ -6,10 +6,6 @@
 
 > Tool to manage multiple states in Terraform - Allows Multi account setups
 
-## Use case
-
-> TODO
-
 ## Usage
 
 ### Generate statefile in the current directory
@@ -32,7 +28,7 @@ terrastate apply --var-file ../../dev.tfvars -- -auto-approve
 
 This generates a statefile called terrastate.tf
 
-It will also replace an exisiting terrastate.tf file with the new infromation.
+It will also replace an exisiting terrastate.tf file with the new information.
 
 #### Required Terraform variables
 
@@ -99,6 +95,45 @@ function tsdestroy {
     terrastate destroy --var-file ../test/$@.tfvars;
 }
 ```
+
+## Additional Terrastate configuration
+
+Terrastate offers the following options to set additional configuration
+
+### Terrastate config file
+
+The terrastate config file is a yaml file which can be either specified via `--terrastate-file` flag or is loaded from `$HOME/.terrastate.yaml`
+
+#### Example content
+
+```yaml
+tf-init-upgrade: True
+```
+
+### Environment variable
+
+Environemt variables prefixed with `TERRASTATE_` are automatically loaded by Terrastate, see the section for available variables below
+
+### Flags
+
+Some config options can be set via subcommand flag, e.g. `--tf-init-upgrade`
+
+### List of available Terrastate config options
+
+#### Upgrade for terraform init
+
+Terraform init offers an `-upgrade` option which automatically updates all modules and plugins during init.
+By specifying one of the following Terrastate config variables, this init option will be added by Terrastate.
+
+The default is: `false`
+
+- Config file:
+  - Key is `tf-init-upgrade`
+  - Value can be `True` or `False`
+- Flag
+  - The flag `--tf-init-upgrade` added to apply, plan, destroy or refresh commands
+- Environment variable
+  - `TERRASTATE_TF_INIT_UPGRADE=True` or `TERRASTATE_TF_INIT_UPGRADE=False`
 
 ## Installation
 
