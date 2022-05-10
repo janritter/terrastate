@@ -37,7 +37,7 @@ jobs:
 
   release:
     docker:
-      - image: cimg/node:14.18
+      - image: cimg/node:14.19
     steps:
       - checkout
       - run: "npm install @semantic-release/changelog &&
