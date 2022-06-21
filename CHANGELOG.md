@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/janritter/terrastate/compare/1.11.0...1.11.1) (2022-06-21)
+
+
+### Bug Fixes
+
+* **deps:** update minor - go ([2acc24a](https://github.com/janritter/terrastate/commit/2acc24aedba7e70afeb3ce7f086df58e6d7317b9))
+
 # [1.11.0](https://github.com/janritter/terrastate/compare/1.10.0...1.11.0) (2022-01-06)
 
 
