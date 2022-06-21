@@ -106,6 +106,7 @@ workflows:
               - /refactor\/.*/
               - /perf\/.*/
               - /dependabot\/.*/
+              - /renovate\/.*/
               - master
       - release:
           requires:
