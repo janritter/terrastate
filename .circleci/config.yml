@@ -1,9 +1,12 @@
-version: 2.0
+version: 2.1
+
+orbs: 
+  semantic-release: trustedshops-public/semantic-release@2.0.0
 
 jobs:
   test:
     docker:
-      - image: cimg/go:1.16.5
+      - image: cimg/go:1.18
     working_directory: ~/go/src/github.com/janritter/terrastate
     steps:
       - checkout
@@ -35,18 +38,9 @@ jobs:
       - store_test_results:
           path: /tmp/test-results
 
-  release:
-    docker:
-      - image: cimg/node:14.18
-    steps:
-      - checkout
-      - run: "npm install @semantic-release/changelog &&
-              npm install @semantic-release/git &&
-              npx semantic-release"
-
   build:
     docker:
-      - image: cimg/go:1.16.5
+      - image: cimg/go:1.18
     working_directory: ~/go/src/github.com/janritter/terrastate
     steps:
       - run:
@@ -57,9 +51,9 @@ jobs:
             go get github.com/tcnksm/ghr
       - checkout
       - run:
-          name: Get latest master version, which includes the git tag from the release step
+          name: Get latest main version, which includes the git tag from the release step
           command: |
-            git checkout master
+            git checkout main
             git pull
       - run:
           name: Install dependencies
@@ -107,18 +101,17 @@ workflows:
               - /perf\/.*/
               - /dependabot\/.*/
               - /renovate\/.*/
-              - master
-      - release:
-          requires:
-            - test
+              - main
+      - semantic-release/with-changelog-github-config:
+          name: release
           filters:
             branches:
               only:
-              - master
+                - main
       - build:
           requires:
             - release
           filters:
             branches:
               only:
-              - master
+                - main
