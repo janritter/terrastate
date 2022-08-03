@@ -6,7 +6,7 @@ orbs:
 jobs:
   test:
     docker:
-      - image: cimg/go:1.18
+      - image: cimg/go:1.19
     working_directory: ~/go/src/github.com/janritter/terrastate
     steps:
       - checkout
@@ -40,7 +40,7 @@ jobs:
 
   build:
     docker:
-      - image: cimg/go:1.18
+      - image: cimg/go:1.19
     working_directory: ~/go/src/github.com/janritter/terrastate
     steps:
       - run:
