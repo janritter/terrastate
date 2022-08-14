@@ -1,3 +1,10 @@
+## [1.11.2](https://github.com/janritter/terrastate/compare/1.11.1...1.11.2) (2022-08-14)
+
+
+### Bug Fixes
+
+* updated go packages and go version to 1.19 ([ab94415](https://github.com/janritter/terrastate/commit/ab944154a9bc223d076c0076f5815d201c964886))
+
 ## [1.11.1](https://github.com/janritter/terrastate/compare/1.11.0...1.11.1) (2022-06-21)
 
 
