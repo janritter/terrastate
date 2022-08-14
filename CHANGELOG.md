@@ -1,3 +1,10 @@
+## [1.11.3](https://github.com/janritter/terrastate/compare/1.11.2...1.11.3) (2022-08-14)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/stretchr/testify to v1.8.0 ([edc8d59](https://github.com/janritter/terrastate/commit/edc8d59e12174d09d841ad092d1e6f8050fe9115))
+
 ## [1.11.2](https://github.com/janritter/terrastate/compare/1.11.1...1.11.2) (2022-08-14)
 
 
