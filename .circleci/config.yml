@@ -110,6 +110,8 @@ workflows:
             branches:
               only:
                 - main
+          context:
+            - github-release
       - build:
           requires:
             - release
@@ -117,3 +119,5 @@ workflows:
             branches:
               only:
                 - main
+          context:
+            - github-release
