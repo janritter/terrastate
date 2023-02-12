@@ -1,3 +1,10 @@
+## [1.11.5](https://github.com/janritter/terrastate/compare/1.11.4...1.11.5) (2023-02-12)
+
+
+### Bug Fixes
+
+* **deps:** update minor go packages ([a81b45b](https://github.com/janritter/terrastate/commit/a81b45b46e4b08662d4bbdc7060cddc381c068e2))
+
 ## [1.11.4](https://github.com/janritter/terrastate/compare/1.11.3...1.11.4) (2022-12-07)
 
 
