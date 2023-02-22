@@ -41,12 +41,16 @@ var refreshCmd = &cobra.Command{
 		// Terraform init
 		if err := getTerraformExecCmdForSubcommand("init", varFile, buildTFInitArgs(viper.GetBool("tf-init-upgrade"))).Run(); err != nil {
 			color.Red("terraform init returned the following error code: " + err.Error())
+			passThroughExitCode(err)
+
 			return
 		}
 
 		// Terraform refresh
 		if err := getTerraformExecCmdForSubcommand("refresh", varFile, strings.Join(args, " ")).Run(); err != nil {
 			color.Red("terraform refresh returned the following error code: " + err.Error())
+			passThroughExitCode(err)
+
 			return
 		}
 	},
