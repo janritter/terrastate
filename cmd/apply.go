@@ -42,12 +42,16 @@ var applyCmd = &cobra.Command{
 		// Terraform init
 		if err := getTerraformExecCmdForSubcommand("init", varFile, buildTFInitArgs(viper.GetBool("tf-init-upgrade"))).Run(); err != nil {
 			color.Red("terraform init returned the following error code: " + err.Error())
+			passThroughExitCode(err)
+
 			return
 		}
 
 		// Terraform apply
 		if err := getTerraformExecCmdForSubcommand("apply", varFile, strings.Join(args, " ")).Run(); err != nil {
 			color.Red("terraform apply returned the following error code: " + err.Error())
+			passThroughExitCode(err)
+
 			return
 		}
 	},

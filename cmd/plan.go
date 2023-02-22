@@ -41,12 +41,16 @@ var planCmd = &cobra.Command{
 		// Terraform init
 		if err := getTerraformExecCmdForSubcommand("init", varFile, buildTFInitArgs(viper.GetBool("tf-init-upgrade"))).Run(); err != nil {
 			color.Red("terraform init returned the following error code: " + err.Error())
+			passThroughExitCode(err)
+
 			return
 		}
 
 		// Terraform plan
 		if err := getTerraformExecCmdForSubcommand("plan", varFile, strings.Join(args, " ")).Run(); err != nil {
 			color.Red("terraform plan returned the following error code: " + err.Error())
+			passThroughExitCode(err)
+
 			return
 		}
 	},
