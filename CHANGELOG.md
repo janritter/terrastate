@@ -1,3 +1,14 @@
+## [2.0.0](https://github.com/janritter/terrastate/compare/1.11.5...2.0.0) (2023-02-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* previously terrastate handled the error of terraform subcommands and always ended with exit code 0, now terrastate will handle the error and exit with the same error code as the failed terraform subcommand
+
+### Features
+
+* previously terrastate handled the error of terraform subcommands and always ended with exit code 0, now terrastate will handle the error and exit with the same error code as the failed terraform subcommand ([888ab6b](https://github.com/janritter/terrastate/commit/888ab6b17c912a72768e02d9315f2b23ae5b6e40))
+
 ## [1.11.5](https://github.com/janritter/terrastate/compare/1.11.4...1.11.5) (2023-02-12)
 
 
