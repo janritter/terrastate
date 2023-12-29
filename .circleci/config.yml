@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs: 
-  semantic-release: trustedshops-public/semantic-release@3.1.5
+  semantic-release: trustedshops-public/semantic-release@6.0.0
 
 jobs:
   test:
@@ -102,7 +102,7 @@ workflows:
               - /dependabot\/.*/
               - /renovate\/.*/
               - main
-      - semantic-release/with-changelog-github-config:
+      - semantic-release/with_changelog_github_config:
           name: release
           requires:
             - test
