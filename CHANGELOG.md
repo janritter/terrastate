@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/janritter/terrastate/compare/2.0.1...2.0.2) (2024-12-10)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/hashicorp/hcl to v2 ([2ec4635](https://github.com/janritter/terrastate/commit/2ec4635e10c36701a57a1270b575096abce4886d))
+
 ## [2.0.1](https://github.com/janritter/terrastate/compare/2.0.0...2.0.1) (2024-12-10)
 
 
