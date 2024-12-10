@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/janritter/terrastate/compare/2.0.0...2.0.1) (2024-12-10)
+
+
+### Bug Fixes
+
+* **deps:** update minor go packages ([fb89ba0](https://github.com/janritter/terrastate/commit/fb89ba0ebd888b7dfb116de89b4195880e46fdb1))
+
 ## [2.0.0](https://github.com/janritter/terrastate/compare/1.11.5...2.0.0) (2023-02-22)
 
 
