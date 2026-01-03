@@ -11,11 +11,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install CodeClimate reporter
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-      - run:
           name: Install dependencies
           command: |
             make prepare
@@ -28,9 +23,7 @@ jobs:
           name: Run tests
           command: |
             PACKAGE_NAMES=$(go list ./... | circleci tests split --split-by=timings --timings-type=classname)
-            ./cc-test-reporter before-build
             gotestsum --junitfile /tmp/test-results/gotestsum-report.xml -- -coverprofile=c.out $PACKAGE_NAMES
-             ./cc-test-reporter after-build --exit-code $?
             go tool cover -html=c.out -o coverage.html
             mv coverage.html /tmp/artifacts 
       - store_artifacts:
