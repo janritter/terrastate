@@ -1,3 +1,9 @@
+## [2.1.0](https://github.com/janritter/terrastate/compare/2.0.2...2.1.0) (2026-01-03)
+
+### Features
+
+* updated to go 1.25 ([5638ace](https://github.com/janritter/terrastate/commit/5638ace67827df9915d4965a3e745e50b485ae20))
+
 ## [2.0.2](https://github.com/janritter/terrastate/compare/2.0.1...2.0.2) (2024-12-10)
 
 
