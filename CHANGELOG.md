@@ -1,3 +1,9 @@
+## [2.1.1](https://github.com/janritter/terrastate/compare/2.1.0...2.1.1) (2026-01-03)
+
+### Bug Fixes
+
+* **deps:** update minor go packages ([2ffdb5c](https://github.com/janritter/terrastate/commit/2ffdb5c27d6609b6a142bcf05aa98edd47e6427e))
+
 ## [2.1.0](https://github.com/janritter/terrastate/compare/2.0.2...2.1.0) (2026-01-03)
 
 ### Features
