@@ -181,6 +181,12 @@ var backendAttributes = types.BackendAttributes{
 			Required:     false,
 		},
 		{
+			AttributeKey: "use_lockfile",
+			VarKey:       "state_use_lockfile",
+			ExpectedType: "bool",
+			Required:     false,
+		},
+		{
 			AttributeKey: "workspace_key_prefix",
 			VarKey:       "state_workspace_key_prefix",
 			ExpectedType: "string",
