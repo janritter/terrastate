@@ -19,6 +19,10 @@ var placeholders = []placeholder{
 		key:   "current.dir",
 		value: getCurrentDir(),
 	},
+	{
+		key:   "parent.dir",
+		value: getParentDir(),
+	},
 }
 
 func getCurrentDir() string {
@@ -27,6 +31,16 @@ func getCurrentDir() string {
 		color.Red(err.Error())
 	}
 	return filepath.Base(path)
+}
+
+func getParentDir() string {
+	path, err := os.Getwd()
+	if err != nil {
+		color.Red(err.Error())
+		return ""
+	}
+	parentPath := filepath.Dir(path)
+	return filepath.Base(parentPath)
 }
 
 func getStringAfterSettingPlaceholderValues(input string) string {
