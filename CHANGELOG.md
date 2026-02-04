@@ -1,3 +1,9 @@
+## [2.1.2](https://github.com/janritter/terrastate/compare/2.1.1...2.1.2) (2026-02-04)
+
+### Bug Fixes
+
+* support the configuration parameter use_lockfile ([e36beb8](https://github.com/janritter/terrastate/commit/e36beb875036b5704b8cf4ab5ffebb7208c12a92))
+
 ## [2.1.1](https://github.com/janritter/terrastate/compare/2.1.0...2.1.1) (2026-01-03)
 
 ### Bug Fixes
