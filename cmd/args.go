@@ -1,9 +1,8 @@
 package cmd
 
-func buildTFInitArgs(tfInitUpgrade bool) string {
-	var args string
+func buildTFInitArgs(tfInitUpgrade bool) []string {
 	if tfInitUpgrade {
-		args = "-upgrade"
+		return []string{"-upgrade"}
 	}
-	return args
+	return nil
 }
