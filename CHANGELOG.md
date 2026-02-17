@@ -1,3 +1,9 @@
+## [2.1.3](https://github.com/janritter/terrastate/compare/2.1.2...2.1.3) (2026-02-17)
+
+### Bug Fixes
+
+* failed to parse command line flags ([38dfb9b](https://github.com/janritter/terrastate/commit/38dfb9b0f2f9251cb8c9a58e0ff7758c9813a635))
+
 ## [2.1.2](https://github.com/janritter/terrastate/compare/2.1.1...2.1.2) (2026-02-04)
 
 ### Bug Fixes
