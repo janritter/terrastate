@@ -85,19 +85,14 @@ workflows:
             branches:
               only:
               - /feat\/.*/
-              - /[a-zA-Z0-9\-]+:feat\/.*/
               - /chore\/.*/
-              - /[a-zA-Z0-9\-]+:chore\/.*/
               - /fix\/.*/
-              - /[a-zA-Z0-9\-]+:fix\/.*/
               - /test\/.*/
-              - /[a-zA-Z0-9\-]+:test\/.*/
               - /refactor\/.*/
-              - /[a-zA-Z0-9\-]+:refactor\/.*/
               - /perf\/.*/
-              - /[a-zA-Z0-9\-]+:perf\/.*/
               - /dependabot\/.*/
               - /renovate\/.*/
+              - /pull\/.*/
               - main
       - semantic-release/with_changelog_github_config:
           name: release
