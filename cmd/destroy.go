@@ -17,7 +17,6 @@ package cmd
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
@@ -42,7 +41,7 @@ var destroyCmd = &cobra.Command{
 		}
 
 		// Terraform destroy
-		if err := getTerraformExecCmdForSubcommand("destroy", varFile, strings.Join(args, " ")).Run(); err != nil {
+		if err := getTerraformExecCmdForSubcommand("destroy", varFile, args).Run(); err != nil {
 			color.Red("terraform destroy returned the following error code: " + err.Error())
 			passThroughExitCode(err)
 

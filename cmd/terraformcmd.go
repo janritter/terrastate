@@ -6,7 +6,7 @@ import (
 	"os/exec"
 )
 
-func getTerraformExecCmdForSubcommand(subcommand string, varFile string, terraformFlags string) *exec.Cmd {
+func getTerraformExecCmdForSubcommand(subcommand string, varFile string, terraformFlags []string) *exec.Cmd {
 	terraformExecutable, _ := exec.LookPath("terraform")
 
 	args := []string{
@@ -14,9 +14,7 @@ func getTerraformExecCmdForSubcommand(subcommand string, varFile string, terrafo
 		subcommand,
 		"--var-file=" + varFile}
 
-	if terraformFlags != "" {
-		args = append(args, terraformFlags)
-	}
+	args = append(args, terraformFlags...)
 
 	cmd := &exec.Cmd{
 		Path:   terraformExecutable,

@@ -22,7 +22,6 @@ package cmd
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
@@ -47,7 +46,7 @@ var planCmd = &cobra.Command{
 		}
 
 		// Terraform plan
-		if err := getTerraformExecCmdForSubcommand("plan", varFile, strings.Join(args, " ")).Run(); err != nil {
+		if err := getTerraformExecCmdForSubcommand("plan", varFile, args).Run(); err != nil {
 			color.Red("terraform plan returned the following error code: " + err.Error())
 			passThroughExitCode(err)
 

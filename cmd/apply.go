@@ -22,7 +22,6 @@ package cmd
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -48,7 +47,7 @@ var applyCmd = &cobra.Command{
 		}
 
 		// Terraform apply
-		if err := getTerraformExecCmdForSubcommand("apply", varFile, strings.Join(args, " ")).Run(); err != nil {
+		if err := getTerraformExecCmdForSubcommand("apply", varFile, args).Run(); err != nil {
 			color.Red("terraform apply returned the following error code: " + err.Error())
 			passThroughExitCode(err)
 
