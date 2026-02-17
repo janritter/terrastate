@@ -78,19 +78,24 @@ jobs:
             git add terrastate.rb && git commit -m "chore: deployment of version $VERSION - $NOW" && git push
 
 workflows:
-  version: 2
-  build:
+  continuous:
     jobs:
       - test:
           filters:
             branches:
               only:
               - /feat\/.*/
+              - /[a-zA-Z0-9\-]+:feat\/.*/
               - /chore\/.*/
+              - /[a-zA-Z0-9\-]+:chore\/.*/
               - /fix\/.*/
+              - /[a-zA-Z0-9\-]+:fix\/.*/
               - /test\/.*/
+              - /[a-zA-Z0-9\-]+:test\/.*/
               - /refactor\/.*/
+              - /[a-zA-Z0-9\-]+:refactor\/.*/
               - /perf\/.*/
+              - /[a-zA-Z0-9\-]+:perf\/.*/
               - /dependabot\/.*/
               - /renovate\/.*/
               - main
