@@ -1,3 +1,9 @@
+## [2.2.0](https://github.com/janritter/terrastate/compare/2.1.3...2.2.0) (2026-02-27)
+
+### Features
+
+* switched to goreleaser ([e4c6a79](https://github.com/janritter/terrastate/commit/e4c6a79fed2bed0c8a0521379bfa27c4f51d5d64))
+
 ## [2.1.3](https://github.com/janritter/terrastate/compare/2.1.2...2.1.3) (2026-02-17)
 
 ### Bug Fixes
