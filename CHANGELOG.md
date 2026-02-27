@@ -1,3 +1,9 @@
+## [2.2.1](https://github.com/janritter/terrastate/compare/2.2.0...2.2.1) (2026-02-27)
+
+### Bug Fixes
+
+* switched to homebrew casks and removed intermediate formula ([db5b025](https://github.com/janritter/terrastate/commit/db5b025ef9063ab4df54702fe9ca966f960088b6))
+
 ## [2.2.0](https://github.com/janritter/terrastate/compare/2.1.3...2.2.0) (2026-02-27)
 
 ### Features
