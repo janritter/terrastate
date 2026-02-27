@@ -149,10 +149,14 @@ Install terrastate
 brew install terrastate
 ```
 
+The formula is maintained in the `Formula/` directory of this repository.
+
 ### For Linux
 
-1. Download the latest release binary for your OS - [Releases](https://github.com/janritter/terrastate/releases) - For Linux (64bit) this would be 'linux_amd64_terrastate'
-2. Rename the downloaded binary to terrastate and move it to your '/usr/bin/' or '/usr/local/bin' directory
+1. Download the latest release archive for your OS and architecture from [Releases](https://github.com/janritter/terrastate/releases)
+   - `terrastate_linux_amd64.tar.gz` for Linux (x86-64)
+   - `terrastate_linux_arm64.tar.gz` for Linux (ARM64)
+2. Extract the archive and move the `terrastate` binary to `/usr/bin/` or `/usr/local/bin/`
 3. Start using terrastate
 
 ## Development

@@ -36,12 +36,6 @@ jobs:
       - image: cimg/go:1.25
     working_directory: ~/go/src/github.com/janritter/terrastate
     steps:
-      - run:
-          name: Install additional packages
-          command: |
-            sudo apt-get update && sudo apt-get install python3 python3-pip python3-jinja2 git -y
-            go install github.com/mitchellh/gox@latest
-            go install github.com/tcnksm/ghr@latest
       - checkout
       - run:
           name: Get latest main version, which includes the git tag from the release step
@@ -49,33 +43,14 @@ jobs:
             git checkout main
             git pull
       - run:
-          name: Install dependencies
+          name: Install GoReleaser
           command: |
-            make prepare
+            curl -sSfL https://goreleaser.com/static/run | GOVERSION_FLAGS='' bash -s -- --version
+            curl -sSfL https://github.com/goreleaser/goreleaser/releases/latest/download/goreleaser_Linux_x86_64.tar.gz | tar -xz -C /tmp goreleaser
+            sudo mv /tmp/goreleaser /usr/local/bin/goreleaser
       - run:
-          name: Configure git user
-          command: |
-            git config --global user.email "git+circleci@janrtr.de"
-            git config --global user.name "CircleCI"
-      - run:
-          name: Build binaries
-          command: |
-            export NOW=$(date +'%Y-%m-%d_%T')
-            gox -output "dist/{{.OS}}_{{.Arch}}_{{.Dir}}" -ldflags "-X github.com/janritter/terrastate/cmd.gitSha=`git rev-parse HEAD` -X github.com/janritter/terrastate/cmd.buildTime=$NOW -X github.com/janritter/terrastate/cmd.version=`git describe --abbrev=0 --tags`" -arch="amd64" -os="linux darwin windows"
-      - run:
-          name: Upload binaries to GitHub
-          command: |
-            ghr --username janritter --token $GITHUB_TOKEN --replace $(git describe --abbrev=0 --tags) dist/
-      - run:
-          name: Create new Homebrew formula
-          command: |
-            export FILE_HASH_MAC=`sha256sum dist/darwin_amd64_terrastate | awk '{print $1}'`
-            export FILE_HASH_LINUX=`sha256sum dist/linux_amd64_terrastate | awk '{print $1}'`
-            export VERSION=`git describe --abbrev=0 --tags`
-            git clone https://${GITHUB_TOKEN}@github.com/janritter/homebrew-terrastate.git
-            cd homebrew-terrastate
-            python3 generateFormula.py
-            git add terrastate.rb && git commit -m "chore: deployment of version $VERSION - $NOW" && git push
+          name: Release
+          command: goreleaser release --clean
 
 workflows:
   continuous:

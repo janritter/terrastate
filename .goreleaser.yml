@@ -1,0 +1,64 @@
+version: 2
+
+project_name: terrastate
+
+before:
+  hooks:
+    - go mod download
+
+builds:
+  - main: .
+    binary: terrastate
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -X github.com/janritter/terrastate/cmd.version={{.Version}}
+      - -X github.com/janritter/terrastate/cmd.gitSha={{.Commit}}
+      - -X github.com/janritter/terrastate/cmd.buildTime={{.Date}}
+
+archives:
+  - formats:
+      - tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+
+checksum:
+  name_template: checksums.txt
+
+release:
+  github:
+    owner: janritter
+    name: terrastate
+
+brews:
+  - name: terrastate
+    homepage: https://github.com/janritter/terrastate
+    description: Tool to manage multiple states in Terraform - Allows Multi account setups
+    license: MIT
+    directory: Formula
+    commit_msg_template: "chore: brew formula update for {{ .ProjectName }} version {{ .Tag }} [skip ci]"
+    commit_author:
+      name: goreleaserbot
+      email: git+circleci@janrtr.de
+    repository:
+      owner: janritter
+      name: terrastate
+      branch: main
+      token: "{{ .Env.GITHUB_TOKEN }}"
+    install: |
+      bin.install "terrastate"
+    test: |
+      system "#{bin}/terrastate version"
+
+changelog:
+  disable: true
