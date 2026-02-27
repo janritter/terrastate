@@ -149,8 +149,6 @@ Install terrastate
 brew install terrastate
 ```
 
-The formula is maintained in the `Formula/` directory of this repository.
-
 ### For Linux
 
 1. Download the latest release archive for your OS and architecture from [Releases](https://github.com/janritter/terrastate/releases)

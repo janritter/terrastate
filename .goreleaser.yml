@@ -40,25 +40,26 @@ release:
     owner: janritter
     name: terrastate
 
-brews:
+homebrew_casks:
   - name: terrastate
     homepage: https://github.com/janritter/terrastate
     description: Tool to manage multiple states in Terraform - Allows Multi account setups
-    license: MIT
-    directory: Formula
-    commit_msg_template: "chore: brew formula update for {{ .ProjectName }} version {{ .Tag }} [skip ci]"
+    directory: Casks
+    commit_msg_template: "chore: brew cask update for {{ .ProjectName }} version {{ .Tag }} [skip ci]"
     commit_author:
       name: goreleaserbot
       email: git+circleci@janrtr.de
     repository:
       owner: janritter
-      name: terrastate
+      name: homebrew-terrastate
       branch: main
       token: "{{ .Env.GITHUB_TOKEN }}"
-    install: |
-      bin.install "terrastate"
-    test: |
-      system "#{bin}/terrastate version"
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/terrastate"]
+          end
 
 changelog:
   disable: true
