@@ -4,6 +4,12 @@
 
 * **deps:** updated dependencies ([ca07680](https://github.com/janritter/terrastate/commit/ca07680f3a452395bbb715d9c1840b232f40a877))
 
+## [2.2.2](https://github.com/janritter/terrastate/compare/2.2.1...2.2.2) (2026-07-26)
+
+### Bug Fixes
+
+* **deps:** updated dependencies ([ca07680](https://github.com/janritter/terrastate/commit/ca07680f3a452395bbb715d9c1840b232f40a877))
+
 ## [2.2.1](https://github.com/janritter/terrastate/compare/2.2.0...2.2.1) (2026-02-27)
 
 ### Bug Fixes
