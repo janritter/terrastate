@@ -10,3 +10,11 @@ tests:
 
 run:
 	go run main.go --var-file ./test/test.tfvars
+
+tests-e2e: build
+	rm -rf /tmp/terrastate-e2e
+	mkdir -p /tmp/terrastate-e2e
+	rm -f /tmp/terrastate-e2e/terrastate.tf
+	cd /tmp/terrastate-e2e && $(CURDIR)/bin/terrastate --var-file $(CURDIR)/test/test.tfvars
+	terraform fmt /tmp/terrastate-e2e/terrastate.tf
+	diff /tmp/terrastate-e2e/terrastate.tf $(CURDIR)/test/expected_terrastate.tf
