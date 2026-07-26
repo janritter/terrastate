@@ -25,11 +25,19 @@ jobs:
             PACKAGE_NAMES=$(go list ./... | circleci tests split --split-by=timings --timings-type=classname)
             gotestsum --junitfile /tmp/test-results/gotestsum-report.xml -- -coverprofile=c.out $PACKAGE_NAMES
             go tool cover -html=c.out -o coverage.html
-            mv coverage.html /tmp/artifacts 
+            mv coverage.html /tmp/artifacts
       - store_artifacts:
           path: /tmp/artifacts
       - store_test_results:
           path: /tmp/test-results
+      - run:
+          name: Install Terraform
+          command: |
+            curl -sSfL -o /tmp/terraform.zip https://releases.hashicorp.com/terraform/1.15.1/terraform_1.15.1_linux_amd64.zip
+            sudo unzip -o /tmp/terraform.zip -d /usr/local/bin
+      - run:
+          name: Run terrastate against test/test.tfvars and validate the generated terrastate.tf
+          command: make tests-e2e
 
   build:
     docker:
