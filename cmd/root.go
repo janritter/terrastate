@@ -22,7 +22,6 @@ package cmd
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"strings"
@@ -31,7 +30,6 @@ import (
 
 	"github.com/janritter/terrastate/backend/iface"
 
-	"github.com/hashicorp/hcl"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -57,13 +55,12 @@ var rootCmd = &cobra.Command{
 
 		fmt.Println("Using var-file = " + varFile)
 
-		b, err := ioutil.ReadFile(varFile)
+		b, err := os.ReadFile(varFile)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		var decoded interface{}
-		err = hcl.Decode(&decoded, string(b))
+		decoded, err := decodeVarFile(b, varFile)
 		if err != nil {
 			log.Fatal(err)
 		}
