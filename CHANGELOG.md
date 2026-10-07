@@ -1,3 +1,9 @@
+## [2.3.0](https://github.com/janritter/terrastate/compare/2.2.2...2.3.0) (2026-10-07)
+
+### Features
+
+* parse var-files with HCL v2 ([20a8138](https://github.com/janritter/terrastate/commit/20a813870ed9eaac2dbf46f60695ab9882471a0f))
+
 ## [2.2.2](https://github.com/janritter/terrastate/compare/2.2.1...2.2.2) (2026-07-26)
 
 ### Bug Fixes
